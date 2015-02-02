@@ -1,0 +1,16 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^news\.html$ news\.html [L]
+RewriteRule ^index\.html$ index\.html [L]
+RewriteRule ^act_(.*)\.html$ index.php?yunurl=act_$1 [L]
+RewriteRule ^company-(.*)\.html$ company/index.php?yunurl=$1 [L]
+RewriteRule ^ask-(.*)\.html$ ask/index.php?yunurl=$1 [L]
+RewriteRule ^friend-(.*)\.html$ friend/index.php?yunurl=$1 [L]
+RewriteRule ^wap-(.*)\.html$ wap/index.php?yunurl=$1 [L]
+RewriteRule ^m_(.*)\.html$ index.php?yunurl=m_$1 [L]
+RewriteRule ^c_(.*)\.html$ index.php?yunurl=c_$1 [L]
+
+ErrorDocument 404 /Error.php
+</IfModule>
