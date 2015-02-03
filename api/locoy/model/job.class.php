@@ -241,6 +241,16 @@ class job_controller extends common{
 		include(PLUS_PATH."city.cache.php");
 		$name=str_replace(array("省","市","县","区"),"/",$name);
 		$arr=explode("/",$name);
+		if ( count($arr) > 2 ) {
+			$arr = array($arr[0],$arr[1]);
+		}
+		
+		if ( count($arr) > 1 ) {
+			if( $arr[1] == "浦东" ) {
+				$arr[1] = "浦东新";
+			}
+		}
+		
 		if(is_array($arr)){
 			foreach($arr as $v){
 				$data[]=$this->locoytostr($city_name,$v,$locoy_rate);
