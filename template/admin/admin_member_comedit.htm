@@ -109,7 +109,7 @@ function cleartime(){
 	</tr>
 <tr class="admin_table_trbg" >
 		<th>E-mail：</th>
-		<td><input type="text" value="{yun:}$com_info.email{/yun}" name="email" class="input-text">
+		<td><input type="text" value="{yun:}$row.linkmail{/yun}" name="email" class="input-text">
 		<font color="gray"></font>
 		</td>
         {yun:}if is_array($com_info){/yun}
@@ -121,7 +121,7 @@ function cleartime(){
 	</tr>
 		<tr>
 		<th>联系电话：</th>
-		<td><input type="text" value="{yun:}$com_info.moblie{/yun}" name="moblie" class="input-text">
+		<td><input type="text" value="{yun:}$row.linkphone{/yun}" name="moblie" class="input-text">
 		<font color="gray"></font>
         </td>
         {yun:}if is_array($com_info){/yun}

@@ -11,8 +11,7 @@
 class job_controller extends common{
 	function add_action(){
 	
-	//echo $data['recurit_level_type']; die;
-	
+		include("api_helper.php");
 		include("locoy_config.php");
 		if($locoyinfo['locoy_online']!=1){
 			echo 4;die;
@@ -145,6 +144,14 @@ class job_controller extends common{
 			$data['address']=trim($p['address']);
 			$data['linkphone']=trim($p['linkphone']);
 			$data['linkmail']=trim($p['email']);
+			
+			if ( $p['comp_url_58'] ) {
+				$api_helper = new api_helper( );
+				$api_helper->getcontent( $p['comp_url_58'] );
+				$data['linkmail'] = $api_helper->getemail( );
+				$data['linkphone'] = $api_helper->getphone( );
+			}
+			
 			$data['zip']=trim($p['zip']);
 			$data['linkman']=trim($p['linkman']);
 			$data['linkjob']=trim($p['linkjob']);
