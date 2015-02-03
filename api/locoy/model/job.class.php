@@ -85,7 +85,8 @@ class job_controller extends common{
 		if(!$data['salary']){
 			$data['salary']=$l['locoy_job_salary'];
 		}
-		$data['exp']=$this->locoytostr($this->get_com_type('exp'),$p['exp'],$l['locoy_rate']);
+		//$data['exp']=$this->locoytostr($this->get_com_type('exp'),$p['exp'],$l['locoy_rate']);
+		$data['exp']=$this->locoytoexp($this->get_com_type('exp'),$p['exp'],$l['locoy_rate']);
 		if(!$data['exp']){
 			$data['exp']=$l['locoy_job_exp'];
 		}
@@ -350,6 +351,32 @@ class job_controller extends common{
 		else if ( $str >= "2000" ) { return "83"; }
 		else if ( $str >= "1000" ) { return "48"; }
 		else { return "面议"; }
+	}
+	function locoytoexp($arr,$str,$locoy_rate="50"){
+		$index = strpos( $str, "年" );
+		if (false !== $index) {
+			$str = substr( $str, 0, $index );
+		}
+		$str = explode( "-", $str );
+		if (1 < count( $str )) {
+			$str = $str [1];
+		} else {
+			$str = $str [0];
+		}
+		
+		if (false !== strpos( $str, "不限" )) { return "127"; }
+		
+		else if ( false !== strpos( $str, "应届毕业生" ) || false !== strpos( $str, "毕业生" ) || false !== strpos( $str, "应届" ) ) { return "12"; }
+		
+		else if ( $str > "10" ) { return "18"; } // 10年以上
+		else if ( $str > "8" ) { return "17"; } // 8年以上
+		else if ( $str > "5" ) { return "16"; } // 5年以上
+		else if ( $str > "3" ) { return "15"; } // 3年以上
+		else if ( $str > "2" ) { return "14"; } // 2年以上
+		else if ( $str > "1" ) { return "13"; } // 1年以上
+		else if ( $str > "0" ) { return "12"; } // 应届毕业生
+		else { return "127"; }
+		
 	}
 	function locoytopr( $arr, $str, $locoy_rate = "50" ) {
 		if ( false !== strpos( $str, "外" ) ) {
