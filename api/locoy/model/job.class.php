@@ -340,7 +340,9 @@ class job_controller extends common{
 		}
 		if ( $str == "不限" ) { return "128"; }
 		else if ( $str == "面议" ) { return "46"; }
-		else if ( $str <= "1000" ) { return "47"; }
+		
+		$str = $str - 1;
+		if ( $str <= "1000" ) { return "47"; }
 		else if ( $str >= "20000" ) { return "505"; }
 		else if ( $str >= "15000" ) { return "504"; }
 		else if ( $str >= "10000" ) { return "53"; }
