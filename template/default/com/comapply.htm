@@ -82,6 +82,11 @@ DD_belatedPNG.fix('.png');
         {yun:}if $Info.job_city_one||$Info.job_city_two||$Info.job_city_three{/yun}
         <li>工作地点：<span class="Company_Claim_r">{yun:}$Info.job_city_one{/yun}&nbsp;{yun:}$Info.job_city_two{/yun}&nbsp;{yun:}$Info.job_city_three{/yun}</span> </li>
         {yun:}/if{/yun}
+		
+		{yun:}if $g_com.address{/yun}
+		<li>工作详细地址：{yun:}$g_com.address{/yun}</li>
+		{yun:}/if{/yun}
+		
         {yun:}if $Info.lang_info{/yun}
         <li class="Company_Claim_end"><span style="width:70px; float:left">语言要求：</span>
         <em style=" display:block;width:580px; float:left">

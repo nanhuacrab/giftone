@@ -220,7 +220,7 @@ class com_controller extends common{
 		 $n_com=$this->obj->DB_select_num("company_msg","`cuid`='".$job_id['uid']."'");
 		$this->yunset("n_com",$n_com);
 		
-		$g_com=$this->obj->DB_select_once("company","`uid`='".$job_id['uid']."'","`ant_num`");
+		$g_com=$this->obj->DB_select_once("company","`uid`='".$job_id['uid']."'","`ant_num`,`address`");
 		$this->yunset("g_com",$g_com);
        
         $s_com=$this->obj->DB_select_num("userid_job","`com_id`='".$job_id['uid']."'");
