@@ -82,11 +82,6 @@ DD_belatedPNG.fix('.png');
         {yun:}if $Info.job_city_one||$Info.job_city_two||$Info.job_city_three{/yun}
         <li>工作地点：<span class="Company_Claim_r">{yun:}$Info.job_city_one{/yun}&nbsp;{yun:}$Info.job_city_two{/yun}&nbsp;{yun:}$Info.job_city_three{/yun}</span> </li>
         {yun:}/if{/yun}
-		
-		{yun:}if $g_com.address{/yun}
-		<li>工作详细地址：{yun:}$g_com.address{/yun}</li>
-		{yun:}/if{/yun}
-		
         {yun:}if $Info.lang_info{/yun}
         <li class="Company_Claim_end"><span style="width:70px; float:left">语言要求：</span>
         <em style=" display:block;width:580px; float:left">
@@ -101,6 +96,11 @@ DD_belatedPNG.fix('.png');
         {yun:}foreach from=$Info.welfare item=wlist{/yun}
         <span class="yun_com_fl_dy yun_com_fl_dy_cor">{yun:}$comclass_name[$wlist]{/yun}</span>
         {yun:}/foreach{/yun}</em></li>
+        {yun:}/if{/yun}
+      </ul>
+      <ul class="Company_Claim" style="padding-top:0px;">
+        {yun:}if $g_com.address{/yun}
+        <li style="width: 100%">工作详细地址：{yun:}$g_com.address{/yun}</li>
         {yun:}/if{/yun}
       </ul>
 	   <div class="stamp_exceed">
