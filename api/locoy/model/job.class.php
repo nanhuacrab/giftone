@@ -54,6 +54,11 @@ class job_controller extends common{
 				$data['job1_son']=$l['locoy_job1_son'];
 				$data['job_post']=$l['locoy_job_post'];
 			}
+		
+		$data['job1']=$data['hy'];
+		$data['job1_son']=null;
+		$data['job_post']=null;
+			
 		$city=$p['job_city']?$p['job_city']:$p['city'];
 		$city_row=$this->get_city($city,$l['locoy_rate']);
 			if($city_row){
@@ -254,7 +259,10 @@ class job_controller extends common{
 		}
 		
 		if ( count($arr) > 1 ) {
-			if( $arr[1] == "浦东" ) {
+			if( $arr[1] == "申请职位" ) {
+				$arr = array($arr[0]);
+			}
+			else if( $arr[1] == "浦东" ) {
 				$arr[1] = "浦东新";
 			}
 		}
