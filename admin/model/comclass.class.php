@@ -44,7 +44,7 @@ class comclass_controller extends common
 		if($_GET['id']){
 			$id=$_GET['id'];
 			$class1=$this->obj->DB_select_once("comclass","`id`='".$_GET['id']."'");
-			$class2=$this->obj->DB_select_all("comclass","`keyid`='".$_GET['id']."'");
+			$class2=$this->obj->DB_select_all("comclass","`keyid`='".$_GET['id']."' order by `sort`");
 			$this->yunset("id",$id);
 			$this->yunset("class1",$class1);
 			$this->yunset("class2",$class2);
