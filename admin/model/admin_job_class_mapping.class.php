@@ -15,6 +15,7 @@ class admin_job_class_mapping_controller extends common
 		$list=$this->obj->DB_select_all("job_class_mapping","1");
 		$this->yunset("list",$list);
 		$this->yuntpl(array('admin/admin_job_class_mapping'));
+		$this->cache_action();
 	}
 	
 	function add_action(){
@@ -68,7 +69,7 @@ class admin_job_class_mapping_controller extends common
 	{
 		include(LIB_PATH."cache.class.php");
 		$cacheclass= new cache("../plus/",$this->obj);
-		$makecache=$cacheclass->industry_cache("industry.cache.php");
+		$makecache=$cacheclass->admin_job_class_mapping_cache("job_class_mapping.cache.php");
 	}
 	function ajax_action(){
 		if($_POST['sort']){
