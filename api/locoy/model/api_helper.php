@@ -29,8 +29,12 @@ class api_helper {
 }
 
 if ($_GET ["test"]) {
+    $test_url = $_GET ["url"];
+    if ( !isset($test_url) ){
+        $test_url = "http://qy.58.com/26862159811078/";
+    }
     $api_helper = new api_helper( );
-    $api_helper->getcontent( "http://qy.58.com/26862159811078/" );
+    $api_helper->getcontent( $test_url );
     echo $api_helper->company_url . "<br />";
     // echo $api_helper->content . "<br />";
     
