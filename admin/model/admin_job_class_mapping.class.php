@@ -12,9 +12,9 @@ class admin_job_class_mapping_controller extends common
 {
 	function index_action(){
 	
-		$list=$this->obj->DB_select_all("industry","1 order by sort desc");
+		$list=$this->obj->DB_select_all("job_class_mapping","1");
 		$this->yunset("list",$list);
-		$this->yuntpl(array('admin/admin_industry'));
+		$this->yuntpl(array('admin/admin_job_class_mapping'));
 	}
 	
 	function add_action(){
