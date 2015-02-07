@@ -72,7 +72,7 @@ function subname(id){
 <div class="infoboxp"> 
 <div class="infoboxp_top_bg"></div>
 <div class="infoboxp_top">
-<span class="admin_title_span">行业类别管理</span>
+<span class="admin_title_span">职位类型匹配关系</span>
 <a  href="javascript:void(0)" onClick="add_class('添加类别','300','140','#houtai_div','')" class="admin_infoboxp_tj">添加类别</a>
 </div>
 <div class="table-list">
@@ -84,9 +84,11 @@ function subname(id){
 	<thead>
 	<tr class="admin_table_top">
    		<th width="50"><label for="chkall"> <input type="checkbox" id='chkAll' onclick='CheckAll(this.form)' /></label></th>
-		<th width="60">行业编号</th>
-		<th>行业名称<span class="clickup">(点击修改)</span></th>
-		<th>排序（越大越靠前）</th>
+		<th width="60">Id</th>
+		<th>来源<span class="clickup">(点击修改)</span></th>
+		<th>匹配字符</th>
+		<th>系统职位类型Id</th>
+		<th>系统职位类型</th>
 		<th width="180" class="admin_table_th_bg">操作</th>
 	</tr>
 	</thead>
@@ -97,22 +99,41 @@ function subname(id){
   	    <td width="50"><input type="checkbox" value="{yun:}$v.id{/yun}" name='del[]' onclick='unselectall()' rel="del_chk" /></td>
 		<td class="ud">{yun:}$v.id{/yun}</td>
 		<td class="ud" align="left">
-		<span onClick="checkname('{yun:}$v.id{/yun}');" id="name{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.name{/yun}</span>
-        <input class="input-text hidden" type="text" id="inputname{yun:}$v.id{/yun}" value="{yun:}$v.name{/yun}" onBlur="subname('{yun:}$v.id{/yun}');" >
+		{yun:}$v.from_type{/yun}
+		<!--
+		<span onClick="checkname('{yun:}$v.id{/yun}');" id="name{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.from_type{/yun}</span>
+        <input class="input-text hidden" type="text" id="inputname{yun:}$v.id{/yun}" value="{yun:}$v.from_type{/yun}" onBlur="subname('{yun:}$v.id{/yun}');" >
+		-->
 		</td>
-		<td><span onClick="checksort('{yun:}$v.id{/yun}');" id="sort{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.sort{/yun}</span>
-        <input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.sort{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" ></td>
+		<td>
+		{yun:}$v.match{/yun}
+		<!--
+		<span onClick="checkname('{yun:}$v.id{/yun}');" id="sort{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.match{/yun}</span>
+		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.match{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" >
+		-->
+		</td>
+        <td class="ud">
+		{yun:}$v.job_class_id{/yun}
+		</td>
+		<td class="ud">
+		{yun:}$v.job_class_name{/yun}
+		</td>
+		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.sort{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" ></td>
 		<td class="ud">
       
-        <a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=admin_industry&c=del&delid={yun:}$v.id{/yun}');"class="admin_cz_sc">删除</a></td>
+        <!--<a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=admin_industry&c=del&delid={yun:}$v.id{/yun}');"class="admin_cz_sc">删除</a>-->
+		</td>
 	</tr> 
 	
 {yun:}/foreach{/yun} 
   <tr style="background:#f1f1f1;">
     <td align="center"><input type="checkbox" id='chkAll2' onclick='CheckAll2(this.form)' /></td>
-    <td colspan="4" >
+    <td colspan="6" >
     <label for="chkAll2">全选</label>&nbsp;
-    <input class="admin_submit4"  type="button" name="delsub" value="删除所选"  onclick="return really('del[]')"/></td>
+	<!--
+    <input class="admin_submit4"  type="button" name="delsub" value="删除所选"  onclick="return really('del[]')"/>
+	-->
+	</td>
     </tr>
 	</tbody>
 </table>
