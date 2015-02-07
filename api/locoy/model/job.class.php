@@ -1,12 +1,12 @@
 <?php
 /* *
-* $Author £ºPHPYUN¿ª·¢ÍÅ¶Ó
+* $Author ï¼šPHPYUNå¼€å‘å›¢é˜Ÿ
 *
-* ¹ÙÍø: http://www.phpyun.com
+* å®˜ç½‘: http://www.phpyun.com
 *
-* °æÈ¨ËùÓĞ 2009-2015 ËŞÇ¨öÎ³±ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾£¬²¢±£ÁôËùÓĞÈ¨Àû¡£
+* ç‰ˆæƒæ‰€æœ‰ 2009-2015 å®¿è¿é‘«æ½®ä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸ï¼Œå¹¶ä¿ç•™æ‰€æœ‰æƒåˆ©ã€‚
 *
-* Èí¼şÉùÃ÷£ºÎ´¾­ÊÚÈ¨Ç°ÌáÏÂ£¬²»µÃÓÃÓÚÉÌÒµÔËÓª¡¢¶ş´Î¿ª·¢ÒÔ¼°ÈÎºÎĞÎÊ½µÄÔÙ´Î·¢²¼¡£
+* è½¯ä»¶å£°æ˜ï¼šæœªç»æˆæƒå‰æä¸‹ï¼Œä¸å¾—ç”¨äºå•†ä¸šè¿è¥ã€äºŒæ¬¡å¼€å‘ä»¥åŠä»»ä½•å½¢å¼çš„å†æ¬¡å‘å¸ƒã€‚
 */
 class job_controller extends common{
 	function add_action(){
@@ -32,6 +32,8 @@ class job_controller extends common{
 		$data['recurit_level_type']=$p['recurit_level_type'];
 		$data['lastupdate']=mktime();
 		$data['state']=$l['locoy_job_status'];
+		$data['add_by_who'] = $p['add_by_who'];
+		$data['jobhits'] = rand(15,35);
 		$data['description'] = str_replace(array("&amp;","background-color:#ffffff","background-color:#fff"),array("&",'',''),html_entity_decode($p['description'],ENT_NOQUOTES,"GB2312"));
 		include(PLUS_PATH."industry.cache.php");
 		$hy=$p['job_hy']?$p['job_hy']:$p['hy'];
@@ -40,7 +42,8 @@ class job_controller extends common{
 		if(!$data['hy']){
 			$data['hy']=$l['locoy_job_hy'];
 		}
-		$job_row=$this->get_job_class($p['job_cate'],$l['locoy_rate']);
+		//$job_row=$this->get_job_class($p['job_cate'],$l['locoy_rate']);
+		$job_row=$this->get_job_class_mapping(1,$p['job_cate'],$l['locoy_rate']); // 58åŒåŸ
 			if($job_row){
 				$i=1;
 				foreach($job_row as $v){
@@ -55,11 +58,8 @@ class job_controller extends common{
 				$data['job_post']=$l['locoy_job_post'];
 			}
 		
-		$data['job1']=$data['hy'];
-		$data['job1_son']=null;
-		$data['job_post']=null;
-			
 		$city=$p['job_city']?$p['job_city']:$p['city'];
+		$data['test_remark'] = $city;
 		$city_row=$this->get_city($city,$l['locoy_rate']);
 			if($city_row){
 				$i=1;
@@ -166,7 +166,7 @@ class job_controller extends common{
 			if($p['com_sdate']){
 				$data['sdate']=date("Y-m-d",strtotime(trim($p['com_sdate'])));
 			}
-			$money=str_replace(array("Ôª","ÃÀÔª","£¤","$"),"",trim($p['money']));
+			$money=str_replace(array("å…ƒ","ç¾å…ƒ","ï¿¥","$"),"",trim($p['money']));
 			if(!$money)$money=$l['locoy_com_money'];
 			$data['money']=$money;
 			$data['content'] = str_replace(array("&amp;","background-color:#ffffff","background-color:#fff"),array("&",'',''),html_entity_decode($p['com_content'],ENT_NOQUOTES,"GB2312"));
@@ -252,18 +252,18 @@ class job_controller extends common{
 	}
 	function get_city($name,$locoy_rate){
 		include(PLUS_PATH."city.cache.php");
-		$name=str_replace(array("Ê¡","ÊĞ","ÏØ","Çø"),"/",$name);
+		$name=str_replace(array("çœ","å¸‚","å¿","åŒº"),"/",$name);
 		$arr=explode("/",$name);
 		if ( count($arr) > 2 ) {
 			$arr = array($arr[0],$arr[1]);
 		}
 		
 		if ( count($arr) > 1 ) {
-			if( $arr[1] == "ÉêÇëÖ°Î»" ) {
+			if( $arr[1] == "ç”³è¯·èŒä½" ) {
 				$arr = array($arr[0]);
 			}
-			else if( $arr[1] == "ÆÖ¶«" ) {
-				$arr[1] = "ÆÖ¶«ĞÂ";
+			else if( trim($arr[1]) == "æµ¦ä¸œ" ) {
+				$arr[1] = "æµ¦ä¸œæ–°";
 			}
 		}
 		
@@ -278,6 +278,30 @@ class job_controller extends common{
 			$val[]=$this->get_once_city($city_type,$city_name,$val[0],$locoy_rate);
 		}
 		return $val;
+	}
+	function get_job_class_mapping($from_type,$name,$locoy_rate){
+		include(PLUS_PATH."job_class_mapping.cache.php");
+		
+		$index = strpos( $name, "(æ‹›" );
+		if (false !== $index) {
+			$name = substr($name, 0, $index);
+		}
+		
+		$index = strpos( $name, "@" );
+		if (false !== $index) {
+			$name = substr($name, 0, $index);
+		}
+		//echo '123'; die;
+		//echo $name; die;
+		
+		$key = $from_type."_".$name;
+		$mapping = $job_class_mapping[$key];
+		if( isset($mapping) ){
+			return array( $mapping[4], $mapping[2], $mapping[0] );
+		}
+		else {
+			return null;
+		}
 	}
 	function get_job_class($name,$locoy_rate){
 		include(PLUS_PATH."job.cache.php");
@@ -328,8 +352,8 @@ class job_controller extends common{
 		return $data;
 	}
 	function locoytomun($arr,$str,$locoy_rate="50"){
-		$index = strpos( $str, "ÈË" );
-		if (0 <= $index) {
+		$index = strpos( $str, "äºº" );
+		if (false !== $index) {
 			$str = substr($str, 0, $index);
 		}
 		$str = explode( "-", $str );
@@ -353,13 +377,13 @@ class job_controller extends common{
 		} else {
 			$str = $str [0];
 		}
-		if ( $str == "²»ÏŞ" ) { return "128"; }
-		else if ( $str == "ÃæÒé" ) { return "46"; }
+		if ( $str == "ä¸é™" ) { return "128"; }
+		else if ( $str == "é¢è®®" ) { return "46"; }
 		
 		$str = $str - 1;
 		if ( $str <= "1000" ) { return "47"; }
-		else if ( $str >= "20000" ) { return "505"; }
-		else if ( $str >= "15000" ) { return "504"; }
+		else if ( $str >= "20000" ) { return "129"; }
+		else if ( $str >= "15000" ) { return "130"; }
 		else if ( $str >= "10000" ) { return "53"; }
 		else if ( $str >= "8000" ) { return "52"; }
 		else if ( $str >= "6000" ) { return "51"; }
@@ -367,10 +391,10 @@ class job_controller extends common{
 		else if ( $str >= "3000" ) { return "49"; }
 		else if ( $str >= "2000" ) { return "83"; }
 		else if ( $str >= "1000" ) { return "48"; }
-		else { return "ÃæÒé"; }
+		else { return "é¢è®®"; }
 	}
 	function locoytoexp($arr,$str,$locoy_rate="50"){
-		$index = strpos( $str, "Äê" );
+		$index = strpos( $str, "å¹´" );
 		if (false !== $index) {
 			$str = substr( $str, 0, $index );
 		}
@@ -381,102 +405,102 @@ class job_controller extends common{
 			$str = $str [0];
 		}
 		
-		if (false !== strpos( $str, "²»ÏŞ" )) { return "127"; }
+		if (false !== strpos( $str, "ä¸é™" )) { return "127"; }
 		
-		else if ( false !== strpos( $str, "Ó¦½ì±ÏÒµÉú" ) || false !== strpos( $str, "±ÏÒµÉú" ) || false !== strpos( $str, "Ó¦½ì" ) ) { return "12"; }
+		else if ( false !== strpos( $str, "åº”å±Šæ¯•ä¸šç”Ÿ" ) || false !== strpos( $str, "æ¯•ä¸šç”Ÿ" ) || false !== strpos( $str, "åº”å±Š" ) ) { return "12"; }
 		
-		else if ( $str > "10" ) { return "18"; } // 10ÄêÒÔÉÏ
-		else if ( $str > "8" ) { return "17"; } // 8ÄêÒÔÉÏ
-		else if ( $str > "5" ) { return "16"; } // 5ÄêÒÔÉÏ
-		else if ( $str > "3" ) { return "15"; } // 3ÄêÒÔÉÏ
-		else if ( $str > "2" ) { return "14"; } // 2ÄêÒÔÉÏ
-		else if ( $str > "1" ) { return "13"; } // 1ÄêÒÔÉÏ
-		else if ( $str > "0" ) { return "12"; } // Ó¦½ì±ÏÒµÉú
+		else if ( $str > "10" ) { return "18"; } // 10å¹´ä»¥ä¸Š
+		else if ( $str > "8" ) { return "17"; } // 8å¹´ä»¥ä¸Š
+		else if ( $str > "5" ) { return "16"; } // 5å¹´ä»¥ä¸Š
+		else if ( $str > "3" ) { return "15"; } // 3å¹´ä»¥ä¸Š
+		else if ( $str > "2" ) { return "14"; } // 2å¹´ä»¥ä¸Š
+		else if ( $str > "1" ) { return "13"; } // 1å¹´ä»¥ä¸Š
+		else if ( $str > "0" ) { return "12"; } // åº”å±Šæ¯•ä¸šç”Ÿ
 		else { return "127"; }
 		
 	}
 	function locoytopr( $arr, $str, $locoy_rate = "50" ) {
-		if ( false !== strpos( $str, "Íâ" ) ) {
-			return '20'; // Íâ×ÊÆóÒµ
+		if ( false !== strpos( $str, "å¤–" ) ) {
+			return '20'; // å¤–èµ„ä¼ä¸š
 		}
-		if ( false !== strpos( $str, "Ë½" ) ) {
-			return '22'; // Ë½ÓªÆóÒµ
+		if ( false !== strpos( $str, "ç§" ) ) {
+			return '22'; // ç§è¥ä¼ä¸š
 		}
-		if ( false !== strpos( $str, "Ãñ" ) ) {
-			return '23'; // ÃñÓªÆóÒµ
+		if ( false !== strpos( $str, "æ°‘" ) ) {
+			return '23'; // æ°‘è¥ä¼ä¸š
 		}
-		if ( false !== strpos( $str, "¹É" ) ) {
-			return '24'; // ¹É·İÖÆÆóÒµ
+		if ( false !== strpos( $str, "è‚¡" ) ) {
+			return '24'; // è‚¡ä»½åˆ¶ä¼ä¸š
 		}
-		if ( false !== strpos( $str, "ÊĞ" ) ) {
-			return '79'; // ÉÏÊĞ¹«Ë¾
+		if ( false !== strpos( $str, "å¸‚" ) ) {
+			return '79'; // ä¸Šå¸‚å…¬å¸
 		}
-		if ( false !== strpos( $str, "¹ú" ) ) {
-			return '80'; // ¹ú¼Ò»ú¹Ø
+		if ( false !== strpos( $str, "å›½" ) ) {
+			return '80'; // å›½å®¶æœºå…³
 		}
 		
-		$index = strpos( $str, "ÊÂ" );
+		$index = strpos( $str, "äº‹" );
 		if (0 <= $index) {
-			return '81'; // ÊÂÒµµ¥Î»
+			return '81'; // äº‹ä¸šå•ä½
 		}
 		
-		if ( false !== strpos( $str, "¼¯" ) ) {
-			return '25'; // ¼¯ÌåÆóÒµ
+		if ( false !== strpos( $str, "é›†" ) ) {
+			return '25'; // é›†ä½“ä¼ä¸š
 		}
 		
-		if ( false !== strpos( $str, "ºÏ" ) ) {
-			return '21'; // ºÏ×ÊÆóÒµ
+		if ( false !== strpos( $str, "åˆ" ) ) {
+			return '21'; // åˆèµ„ä¼ä¸š
 		}
 		
-		return "82"; // ÆäËû
+		return "82"; // å…¶ä»–
 	}
 	function locoytohy( $arr,$str,$locoy_rate="50") {
-		if (false !== strpos( $str, "¼ÆËã»ú" ) || false !== strpos( $str, "»¥ÁªÍø" )) {
+		if (false !== strpos( $str, "è®¡ç®—æœº" ) || false !== strpos( $str, "äº’è”ç½‘" )) {
 			return "35";
 		}
-		if (false !== strpos( $str, "»úĞµ" ) || false !== strpos( $str, "Éè±¸" ) || false !== strpos( $str, "¼¼¹¤" )) {
+		if (false !== strpos( $str, "æœºæ¢°" ) || false !== strpos( $str, "è®¾å¤‡" ) || false !== strpos( $str, "æŠ€å·¥" )) {
 			return "837";
 		}
-		if (false !== strpos( $str, "Ã³Ò×" ) || false !== strpos( $str, "°Ù»õ" )) {
+		if (false !== strpos( $str, "è´¸æ˜“" ) || false !== strpos( $str, "ç™¾è´§" )) {
 			return "835";
 		}
-		if (false !== strpos( $str, "»¯¹¤" ) || false !== strpos( $str, "ÄÜÔ´" )) {
+		if (false !== strpos( $str, "åŒ–å·¥" ) || false !== strpos( $str, "èƒ½æº" )) {
 			return "836";
 		}
-		if (false !== strpos( $str, "¹«ÎñÔ±" ) || false !== strpos( $str, "·­Òë" ) || false !== strpos( $str, "ÆäËû" )) {
+		if (false !== strpos( $str, "å…¬åŠ¡å‘˜" ) || false !== strpos( $str, "ç¿»è¯‘" ) || false !== strpos( $str, "å…¶ä»–" )) {
 			return "45";
 		}
-		if (false !== strpos( $str, "·şÎñ" )) {
+		if (false !== strpos( $str, "æœåŠ¡" )) {
 			return "44";
 		}
-		if (false !== strpos( $str, "×ÉÑ¯" ) || false !== strpos( $str, "·¨ÂÉ" ) || false !== strpos( $str, "½ÌÓı" ) || false !== strpos( $str, "¿ÆÑĞ" )) {
+		if (false !== strpos( $str, "å’¨è¯¢" ) || false !== strpos( $str, "æ³•å¾‹" ) || false !== strpos( $str, "æ•™è‚²" ) || false !== strpos( $str, "ç§‘ç ”" )) {
 			return "43";
 		}
-		if (false !== strpos( $str, "ÈËÊÂ" ) || false !== strpos( $str, "ĞĞÕş" ) || false !== strpos( $str, "¸ß¼¶¹ÜÀí" )) {
+		if (false !== strpos( $str, "äººäº‹" ) || false !== strpos( $str, "è¡Œæ”¿" ) || false !== strpos( $str, "é«˜çº§ç®¡ç†" )) {
 			return "42";
 		}
-		if (false !== strpos( $str, "½¨Öş" ) || false !== strpos( $str, "·¿µØ²ú" )) {
+		if (false !== strpos( $str, "å»ºç­‘" ) || false !== strpos( $str, "æˆ¿åœ°äº§" )) {
 			return "41";
 		}
-		if (false !== strpos( $str, "¹ã¸æ" ) || false !== strpos( $str, "ÊĞ³¡" ) || false !== strpos( $str, "Ã½Ìå" ) || false !== strpos( $str, "ÒÕÊõ" )) {
+		if (false !== strpos( $str, "å¹¿å‘Š" ) || false !== strpos( $str, "å¸‚åœº" ) || false !== strpos( $str, "åª’ä½“" ) || false !== strpos( $str, "è‰ºæœ¯" )) {
 			return "40";
 		}
-		if (false !== strpos( $str, "ÉúÎï" ) || false !== strpos( $str, "ÖÆÒ©" ) || false !== strpos( $str, "Ò½ÁÆ" ) || false !== strpos( $str, "»¤Àí" )) {
+		if (false !== strpos( $str, "ç”Ÿç‰©" ) || false !== strpos( $str, "åˆ¶è¯" ) || false !== strpos( $str, "åŒ»ç–—" ) || false !== strpos( $str, "æŠ¤ç†" )) {
 			return "39";
 		}
-		if (false !== strpos( $str, "Éú²ú" ) || false !== strpos( $str, "ÓªÔË" ) || false !== strpos( $str, "²É¹º" ) || false !== strpos( $str, "ÎïÁ÷" )) {
+		if (false !== strpos( $str, "ç”Ÿäº§" ) || false !== strpos( $str, "è¥è¿" ) || false !== strpos( $str, "é‡‡è´­" ) || false !== strpos( $str, "ç‰©æµ" )) {
 			return "38";
 		}
-		if (false !== strpos( $str, "»á¼Æ" ) || false !== strpos( $str, "½ğÈÚ" ) || false !== strpos( $str, "ÒøĞĞ" ) || false !== strpos( $str, "±£ÏÕ" )) {
+		if (false !== strpos( $str, "ä¼šè®¡" ) || false !== strpos( $str, "é‡‘è" ) || false !== strpos( $str, "é“¶è¡Œ" ) || false !== strpos( $str, "ä¿é™©" )) {
 			return "37";
 		}
-		if (false !== strpos( $str, "ÏúÊÛ" ) || false !== strpos( $str, "¿Í·ş" ) || false !== strpos( $str, "¼¼ÊõÖ§³Ö" ) || false !== strpos( $str, "Åú·¢" ) || false !== strpos( $str, "ÁãÊÛ" ) ) {
+		if (false !== strpos( $str, "é”€å”®" ) || false !== strpos( $str, "å®¢æœ" ) || false !== strpos( $str, "æŠ€æœ¯æ”¯æŒ" ) || false !== strpos( $str, "æ‰¹å‘" ) || false !== strpos( $str, "é›¶å”®" ) ) {
 			return "36";
 		}
-		if (false !== strpos( $str, "Í¨ĞÅ" ) || false !== strpos( $str, "µç×Ó" ) ) {
+		if (false !== strpos( $str, "é€šä¿¡" ) || false !== strpos( $str, "ç”µå­" ) ) {
 			return "839";
 		}
-		return "44"; // ·şÎñ
+		return "44"; // æœåŠ¡
 	}
 	function locoytostr($arr,$str,$locoy_rate="50"){
 		foreach($arr as $key=>$value)
@@ -502,6 +526,34 @@ class job_controller extends common{
 			$retstr[]=ord($string[$i])>127?$string[$i].$string[++$i]:$string[$i]; 
 		} 
 		return $retstr; 
+	}
+	function getjobclasses_action(){
+		echo "<table>";
+		$this->getjobclasses(0,"");
+		echo "</table>";
+	}
+	
+	function getjobclasses($pid,$phtml){
+		$rows=$this->obj->DB_select_all("job_class","`keyid`=".$pid."");
+		foreach( $rows as $row ){
+			echo "<tr>";
+			$h = "<tr>";
+			//echo $phtml;
+			$p = $phtml."<td>".$row['id']."</td>"."<td>".$row['name']."</td>";
+			//echo "<td>".$row['keyid']."</td>";
+			echo $p;
+			$h .= $p;
+			echo "</tr>";
+			$h .= "</tr>";
+			if ( false === $this->getjobclasses($row['id'],$p) ){
+			//	echo $h;
+			}
+		}
+		if( 0 < count($rows) ){
+			return true;
+		}else {
+			return false;
+		}
 	}
 }
 ?>
