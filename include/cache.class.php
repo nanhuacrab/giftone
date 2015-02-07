@@ -121,6 +121,25 @@
 		$data['industry_name']=ArrayToString($industryname);
 		return $this->obj->made_web_array($this->cachedir.$dir,$data);
 	}
+	public function admin_job_class_mapping_cache($dir) {
+		$rows=$this->obj->DB_select_all("job_class_mapping","1");
+		$job_class_from_type=array();
+		$job_class_mapping=array();
+		if(is_array($rows)){
+			foreach($rows as $v){
+				//$industry_index[]=$v['id'];
+				//$industryname[$v['id']]=$v['name'];
+				$key = $v['from_type']."_".$v['match'];
+				//$job_class_from_type[] = $key;
+				$job_class_mapping[$key]=array($v['job_class_id'], $v['job_class_name'], $v['job1_son'], $v['job1_son_name'], $v['job1'], $v['job1_name']);
+			}
+		}
+		//$data['industry_index']=ArrayToString($industry_index,false);
+		//$data['industry_name']=ArrayToString($industryname);
+		//$data['job_class_from_type']=ArrayToString($job_class_from_type,false);
+		$data['job_class_mapping']=ArrayToString($job_class_mapping);
+		return $this->obj->made_web_array($this->cachedir.$dir,$data);
+	}
 	public function subject_cache($dir){
 		$rows=$this->obj->DB_select_all("px_subject_class","1 order by sort desc");
 		if(is_array($rows)){
