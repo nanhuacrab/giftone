@@ -1,12 +1,12 @@
 <?php
 /* *
-* $Author ï¼šPHPYUNå¼€å‘å›¢é˜Ÿ
+* $Author £ºPHPYUN¿ª·¢ÍÅ¶Ó
 *
-* å®˜ç½‘: http://www.phpyun.com
+* ¹ÙÍø: http://www.phpyun.com
 *
-* ç‰ˆæƒæ‰€æœ‰ 2009-2015 å®¿è¿é‘«æ½®ä¿¡æ¯æŠ€æœ¯æœ‰é™å…¬å¸ï¼Œå¹¶ä¿ç•™æ‰€æœ‰æƒåˆ©ã€‚
+* °æÈ¨ËùÓĞ 2009-2015 ËŞÇ¨öÎ³±ĞÅÏ¢¼¼ÊõÓĞÏŞ¹«Ë¾£¬²¢±£ÁôËùÓĞÈ¨Àû¡£
 *
-* è½¯ä»¶å£°æ˜ï¼šæœªç»æˆæƒå‰æä¸‹ï¼Œä¸å¾—ç”¨äºå•†ä¸šè¿è¥ã€äºŒæ¬¡å¼€å‘ä»¥åŠä»»ä½•å½¢å¼çš„å†æ¬¡å‘å¸ƒã€‚
+* Èí¼şÉùÃ÷£ºÎ´¾­ÊÚÈ¨Ç°ÌáÏÂ£¬²»µÃÓÃÓÚÉÌÒµÔËÓª¡¢¶ş´Î¿ª·¢ÒÔ¼°ÈÎºÎĞÎÊ½µÄÔÙ´Î·¢²¼¡£
 */
 class job_controller extends common{
 	function add_action(){
@@ -43,7 +43,7 @@ class job_controller extends common{
 			$data['hy']=$l['locoy_job_hy'];
 		}
 		//$job_row=$this->get_job_class($p['job_cate'],$l['locoy_rate']);
-		$job_row=$this->get_job_class_mapping(1,$p['job_cate'],$l['locoy_rate']); // 58åŒåŸ
+		$job_row=$this->get_job_class_mapping(1,$p['job_cate'],$l['locoy_rate']); // 58Í¬³Ç
 			if($job_row){
 				$i=1;
 				foreach($job_row as $v){
@@ -166,7 +166,7 @@ class job_controller extends common{
 			if($p['com_sdate']){
 				$data['sdate']=date("Y-m-d",strtotime(trim($p['com_sdate'])));
 			}
-			$money=str_replace(array("å…ƒ","ç¾å…ƒ","ï¿¥","$"),"",trim($p['money']));
+			$money=str_replace(array("Ôª","ÃÀÔª","£¤","$"),"",trim($p['money']));
 			if(!$money)$money=$l['locoy_com_money'];
 			$data['money']=$money;
 			$data['content'] = str_replace(array("&amp;","background-color:#ffffff","background-color:#fff"),array("&",'',''),html_entity_decode($p['com_content'],ENT_NOQUOTES,"GB2312"));
@@ -252,18 +252,18 @@ class job_controller extends common{
 	}
 	function get_city($name,$locoy_rate){
 		include(PLUS_PATH."city.cache.php");
-		$name=str_replace(array("çœ","å¸‚","å¿","åŒº"),"/",$name);
+		$name=str_replace(array("Ê¡","ÊĞ","ÏØ","Çø"),"/",$name);
 		$arr=explode("/",$name);
 		if ( count($arr) > 2 ) {
 			$arr = array($arr[0],$arr[1]);
 		}
 		
 		if ( count($arr) > 1 ) {
-			if( $arr[1] == "ç”³è¯·èŒä½" ) {
+			if( $arr[1] == "ÉêÇëÖ°Î»" ) {
 				$arr = array($arr[0]);
 			}
-			else if( trim($arr[1]) == "æµ¦ä¸œ" ) {
-				$arr[1] = "æµ¦ä¸œæ–°";
+			else if( trim($arr[1]) == "ÆÖ¶«" ) {
+				$arr[1] = "ÆÖ¶«ĞÂ";
 			}
 		}
 		
@@ -282,7 +282,7 @@ class job_controller extends common{
 	function get_job_class_mapping($from_type,$name,$locoy_rate){
 		include(PLUS_PATH."job_class_mapping.cache.php");
 		
-		$index = strpos( $name, "(æ‹›" );
+		$index = strpos( $name, "(ÕĞ" );
 		if (false !== $index) {
 			$name = substr($name, 0, $index);
 		}
@@ -352,7 +352,7 @@ class job_controller extends common{
 		return $data;
 	}
 	function locoytomun($arr,$str,$locoy_rate="50"){
-		$index = strpos( $str, "äºº" );
+		$index = strpos( $str, "ÈË" );
 		if (false !== $index) {
 			$str = substr($str, 0, $index);
 		}
@@ -377,8 +377,8 @@ class job_controller extends common{
 		} else {
 			$str = $str [0];
 		}
-		if ( $str == "ä¸é™" ) { return "128"; }
-		else if ( $str == "é¢è®®" ) { return "46"; }
+		if ( $str == "²»ÏŞ" ) { return "128"; }
+		else if ( $str == "ÃæÒé" ) { return "46"; }
 		
 		$str = $str - 1;
 		if ( $str <= "1000" ) { return "47"; }
@@ -391,10 +391,10 @@ class job_controller extends common{
 		else if ( $str >= "3000" ) { return "49"; }
 		else if ( $str >= "2000" ) { return "83"; }
 		else if ( $str >= "1000" ) { return "48"; }
-		else { return "é¢è®®"; }
+		else { return "ÃæÒé"; }
 	}
 	function locoytoexp($arr,$str,$locoy_rate="50"){
-		$index = strpos( $str, "å¹´" );
+		$index = strpos( $str, "Äê" );
 		if (false !== $index) {
 			$str = substr( $str, 0, $index );
 		}
@@ -405,102 +405,102 @@ class job_controller extends common{
 			$str = $str [0];
 		}
 		
-		if (false !== strpos( $str, "ä¸é™" )) { return "127"; }
+		if (false !== strpos( $str, "²»ÏŞ" )) { return "127"; }
 		
-		else if ( false !== strpos( $str, "åº”å±Šæ¯•ä¸šç”Ÿ" ) || false !== strpos( $str, "æ¯•ä¸šç”Ÿ" ) || false !== strpos( $str, "åº”å±Š" ) ) { return "12"; }
+		else if ( false !== strpos( $str, "Ó¦½ì±ÏÒµÉú" ) || false !== strpos( $str, "±ÏÒµÉú" ) || false !== strpos( $str, "Ó¦½ì" ) ) { return "12"; }
 		
-		else if ( $str > "10" ) { return "18"; } // 10å¹´ä»¥ä¸Š
-		else if ( $str > "8" ) { return "17"; } // 8å¹´ä»¥ä¸Š
-		else if ( $str > "5" ) { return "16"; } // 5å¹´ä»¥ä¸Š
-		else if ( $str > "3" ) { return "15"; } // 3å¹´ä»¥ä¸Š
-		else if ( $str > "2" ) { return "14"; } // 2å¹´ä»¥ä¸Š
-		else if ( $str > "1" ) { return "13"; } // 1å¹´ä»¥ä¸Š
-		else if ( $str > "0" ) { return "12"; } // åº”å±Šæ¯•ä¸šç”Ÿ
+		else if ( $str > "10" ) { return "18"; } // 10ÄêÒÔÉÏ
+		else if ( $str > "8" ) { return "17"; } // 8ÄêÒÔÉÏ
+		else if ( $str > "5" ) { return "16"; } // 5ÄêÒÔÉÏ
+		else if ( $str > "3" ) { return "15"; } // 3ÄêÒÔÉÏ
+		else if ( $str > "2" ) { return "14"; } // 2ÄêÒÔÉÏ
+		else if ( $str > "1" ) { return "13"; } // 1ÄêÒÔÉÏ
+		else if ( $str > "0" ) { return "12"; } // Ó¦½ì±ÏÒµÉú
 		else { return "127"; }
 		
 	}
 	function locoytopr( $arr, $str, $locoy_rate = "50" ) {
-		if ( false !== strpos( $str, "å¤–" ) ) {
-			return '20'; // å¤–èµ„ä¼ä¸š
+		if ( false !== strpos( $str, "Íâ" ) ) {
+			return '20'; // Íâ×ÊÆóÒµ
 		}
-		if ( false !== strpos( $str, "ç§" ) ) {
-			return '22'; // ç§è¥ä¼ä¸š
+		if ( false !== strpos( $str, "Ë½" ) ) {
+			return '22'; // Ë½ÓªÆóÒµ
 		}
-		if ( false !== strpos( $str, "æ°‘" ) ) {
-			return '23'; // æ°‘è¥ä¼ä¸š
+		if ( false !== strpos( $str, "Ãñ" ) ) {
+			return '23'; // ÃñÓªÆóÒµ
 		}
-		if ( false !== strpos( $str, "è‚¡" ) ) {
-			return '24'; // è‚¡ä»½åˆ¶ä¼ä¸š
+		if ( false !== strpos( $str, "¹É" ) ) {
+			return '24'; // ¹É·İÖÆÆóÒµ
 		}
-		if ( false !== strpos( $str, "å¸‚" ) ) {
-			return '79'; // ä¸Šå¸‚å…¬å¸
+		if ( false !== strpos( $str, "ÊĞ" ) ) {
+			return '79'; // ÉÏÊĞ¹«Ë¾
 		}
-		if ( false !== strpos( $str, "å›½" ) ) {
-			return '80'; // å›½å®¶æœºå…³
+		if ( false !== strpos( $str, "¹ú" ) ) {
+			return '80'; // ¹ú¼Ò»ú¹Ø
 		}
 		
-		$index = strpos( $str, "äº‹" );
+		$index = strpos( $str, "ÊÂ" );
 		if (0 <= $index) {
-			return '81'; // äº‹ä¸šå•ä½
+			return '81'; // ÊÂÒµµ¥Î»
 		}
 		
-		if ( false !== strpos( $str, "é›†" ) ) {
-			return '25'; // é›†ä½“ä¼ä¸š
+		if ( false !== strpos( $str, "¼¯" ) ) {
+			return '25'; // ¼¯ÌåÆóÒµ
 		}
 		
-		if ( false !== strpos( $str, "åˆ" ) ) {
-			return '21'; // åˆèµ„ä¼ä¸š
+		if ( false !== strpos( $str, "ºÏ" ) ) {
+			return '21'; // ºÏ×ÊÆóÒµ
 		}
 		
-		return "82"; // å…¶ä»–
+		return "82"; // ÆäËû
 	}
 	function locoytohy( $arr,$str,$locoy_rate="50") {
-		if (false !== strpos( $str, "è®¡ç®—æœº" ) || false !== strpos( $str, "äº’è”ç½‘" )) {
+		if (false !== strpos( $str, "¼ÆËã»ú" ) || false !== strpos( $str, "»¥ÁªÍø" )) {
 			return "35";
 		}
-		if (false !== strpos( $str, "æœºæ¢°" ) || false !== strpos( $str, "è®¾å¤‡" ) || false !== strpos( $str, "æŠ€å·¥" )) {
+		if (false !== strpos( $str, "»úĞµ" ) || false !== strpos( $str, "Éè±¸" ) || false !== strpos( $str, "¼¼¹¤" )) {
 			return "837";
 		}
-		if (false !== strpos( $str, "è´¸æ˜“" ) || false !== strpos( $str, "ç™¾è´§" )) {
+		if (false !== strpos( $str, "Ã³Ò×" ) || false !== strpos( $str, "°Ù»õ" )) {
 			return "835";
 		}
-		if (false !== strpos( $str, "åŒ–å·¥" ) || false !== strpos( $str, "èƒ½æº" )) {
+		if (false !== strpos( $str, "»¯¹¤" ) || false !== strpos( $str, "ÄÜÔ´" )) {
 			return "836";
 		}
-		if (false !== strpos( $str, "å…¬åŠ¡å‘˜" ) || false !== strpos( $str, "ç¿»è¯‘" ) || false !== strpos( $str, "å…¶ä»–" )) {
+		if (false !== strpos( $str, "¹«ÎñÔ±" ) || false !== strpos( $str, "·­Òë" ) || false !== strpos( $str, "ÆäËû" )) {
 			return "45";
 		}
-		if (false !== strpos( $str, "æœåŠ¡" )) {
+		if (false !== strpos( $str, "·şÎñ" )) {
 			return "44";
 		}
-		if (false !== strpos( $str, "å’¨è¯¢" ) || false !== strpos( $str, "æ³•å¾‹" ) || false !== strpos( $str, "æ•™è‚²" ) || false !== strpos( $str, "ç§‘ç ”" )) {
+		if (false !== strpos( $str, "×ÉÑ¯" ) || false !== strpos( $str, "·¨ÂÉ" ) || false !== strpos( $str, "½ÌÓı" ) || false !== strpos( $str, "¿ÆÑĞ" )) {
 			return "43";
 		}
-		if (false !== strpos( $str, "äººäº‹" ) || false !== strpos( $str, "è¡Œæ”¿" ) || false !== strpos( $str, "é«˜çº§ç®¡ç†" )) {
+		if (false !== strpos( $str, "ÈËÊÂ" ) || false !== strpos( $str, "ĞĞÕş" ) || false !== strpos( $str, "¸ß¼¶¹ÜÀí" )) {
 			return "42";
 		}
-		if (false !== strpos( $str, "å»ºç­‘" ) || false !== strpos( $str, "æˆ¿åœ°äº§" )) {
+		if (false !== strpos( $str, "½¨Öş" ) || false !== strpos( $str, "·¿µØ²ú" )) {
 			return "41";
 		}
-		if (false !== strpos( $str, "å¹¿å‘Š" ) || false !== strpos( $str, "å¸‚åœº" ) || false !== strpos( $str, "åª’ä½“" ) || false !== strpos( $str, "è‰ºæœ¯" )) {
+		if (false !== strpos( $str, "¹ã¸æ" ) || false !== strpos( $str, "ÊĞ³¡" ) || false !== strpos( $str, "Ã½Ìå" ) || false !== strpos( $str, "ÒÕÊõ" )) {
 			return "40";
 		}
-		if (false !== strpos( $str, "ç”Ÿç‰©" ) || false !== strpos( $str, "åˆ¶è¯" ) || false !== strpos( $str, "åŒ»ç–—" ) || false !== strpos( $str, "æŠ¤ç†" )) {
+		if (false !== strpos( $str, "ÉúÎï" ) || false !== strpos( $str, "ÖÆÒ©" ) || false !== strpos( $str, "Ò½ÁÆ" ) || false !== strpos( $str, "»¤Àí" )) {
 			return "39";
 		}
-		if (false !== strpos( $str, "ç”Ÿäº§" ) || false !== strpos( $str, "è¥è¿" ) || false !== strpos( $str, "é‡‡è´­" ) || false !== strpos( $str, "ç‰©æµ" )) {
+		if (false !== strpos( $str, "Éú²ú" ) || false !== strpos( $str, "ÓªÔË" ) || false !== strpos( $str, "²É¹º" ) || false !== strpos( $str, "ÎïÁ÷" )) {
 			return "38";
 		}
-		if (false !== strpos( $str, "ä¼šè®¡" ) || false !== strpos( $str, "é‡‘è" ) || false !== strpos( $str, "é“¶è¡Œ" ) || false !== strpos( $str, "ä¿é™©" )) {
+		if (false !== strpos( $str, "»á¼Æ" ) || false !== strpos( $str, "½ğÈÚ" ) || false !== strpos( $str, "ÒøĞĞ" ) || false !== strpos( $str, "±£ÏÕ" )) {
 			return "37";
 		}
-		if (false !== strpos( $str, "é”€å”®" ) || false !== strpos( $str, "å®¢æœ" ) || false !== strpos( $str, "æŠ€æœ¯æ”¯æŒ" ) || false !== strpos( $str, "æ‰¹å‘" ) || false !== strpos( $str, "é›¶å”®" ) ) {
+		if (false !== strpos( $str, "ÏúÊÛ" ) || false !== strpos( $str, "¿Í·ş" ) || false !== strpos( $str, "¼¼ÊõÖ§³Ö" ) || false !== strpos( $str, "Åú·¢" ) || false !== strpos( $str, "ÁãÊÛ" ) ) {
 			return "36";
 		}
-		if (false !== strpos( $str, "é€šä¿¡" ) || false !== strpos( $str, "ç”µå­" ) ) {
+		if (false !== strpos( $str, "Í¨ĞÅ" ) || false !== strpos( $str, "µç×Ó" ) ) {
 			return "839";
 		}
-		return "44"; // æœåŠ¡
+		return "44"; // ·şÎñ
 	}
 	function locoytostr($arr,$str,$locoy_rate="50"){
 		foreach($arr as $key=>$value)
