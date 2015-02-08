@@ -50,7 +50,14 @@ body,div{ margin: 0 ;padding: 0;}
 		{yun:}if $show.id{/yun}
       <tr >
         <th>ÕÐÆ¸±àºÅ£º</th>
-        <td>{yun:}$show.id{/yun}</td>
+        <td>{yun:}$show.id{/yun}
+		<span style="padding-left: 10px;">
+			[{yun:}$show.add_by_who{/yun}]
+			<a target="_blank" href="{yun:}$show.page_url{/yun}">[{yun:}$show.page_url{/yun}]</a>
+			[test remark:{yun:}$show.test_remark{/yun}]
+		</span>
+		
+		</td>
       </tr>
 	  {yun:}/if{/yun}
     <tr class="admin_table_trbg" >
