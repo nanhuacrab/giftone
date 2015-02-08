@@ -164,7 +164,7 @@ class job_controller extends common{
 			if ( $p['moblie'] ){
 				$data['linktel']=trim($p['moblie']);
 			}else {
-				$data['linktel']=$data['linkphone']
+				$data['linktel']=$data['linkphone'];
 			}
 			
 			$data['website']=trim($p['website']);
