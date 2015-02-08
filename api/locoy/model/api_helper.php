@@ -26,20 +26,41 @@ class api_helper {
             return $matches [1];
         }
     }
+	function get58jobcontent( $job_url ){
+		$options = array (
+                'http' => array (
+                        'method' => 'GET' 
+                ) 
+        );
+        $this->content = stream_context_create( $options );
+        $this->content = file_get_contents( $job_url, false, $this->content );
+	}
+	function getcompanyurl( ){
+		// '/<a class="companyName" href="(?<url>)[^"]*)"/i';
+	    $regex = '/<a class="companyName" href="(?<url>[^"]*)"/i';
+        $matches = array ();
+        if (preg_match( $regex, $this->content, $matches )) {
+            return $matches [1];
+        }
+	}
 }
 
 if ($_GET ["test"]) {
     $test_url = $_GET ["url"];
-    if ( !isset($test_url) ){
-        $test_url = "http://qy.58.com/26862159811078/";
-    }
     $api_helper = new api_helper( );
-    $api_helper->getcontent( $test_url );
+    
+	/*
+	$api_helper->getcontent( $test_url );
     echo $api_helper->company_url . "<br />";
     // echo $api_helper->content . "<br />";
     
     echo $api_helper->getphone( ) . "<br />";
     echo $api_helper->getemail( ) . "<br />";
+	*/
+	
+	
+	$api_helper->get58jobcontent( $test_url );
+	echo $api_helper->getcompanyurl();
 }
 
 ?>
