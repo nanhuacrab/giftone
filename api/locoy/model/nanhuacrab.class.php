@@ -26,7 +26,7 @@ class nanhuacrab_controller extends common{
 		foreach( $companys as $company ) {
 			$uids[] = $company["uid"];
 		}
-		$where = "`uid` IN ( ".implode(",", $uids)." )";
+		$where = "`uid` IN ( ".implode(",", $uids)." ) ORDER BY `id`";
 		$jobs = $this->obj->DB_select_all("company_job",$where);
 		foreach( $jobs as $job ) {
 			$jobsDic[$job['uid']] = $job;
