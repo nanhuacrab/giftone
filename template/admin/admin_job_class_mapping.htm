@@ -89,6 +89,10 @@ function subname(id){
 		<th>匹配字符</th>
 		<th>系统职位类型Id</th>
 		<th>系统职位类型</th>
+		<th>job1_son</th>
+		<th>job1_son_name</th>
+		<th>job1</th>
+		<th>job1_name</th>
 		<th width="180" class="admin_table_th_bg">操作</th>
 	</tr>
 	</thead>
@@ -99,7 +103,7 @@ function subname(id){
   	    <td width="50"><input type="checkbox" value="{yun:}$v.id{/yun}" name='del[]' onclick='unselectall()' rel="del_chk" /></td>
 		<td class="ud">{yun:}$v.id{/yun}</td>
 		<td class="ud" align="left">
-		{yun:}$v.from_type{/yun}
+		{yun:}if 1 == $v.from_type{/yun}58同城{yun:}/if{/yun}
 		<!--
 		<span onClick="checkname('{yun:}$v.id{/yun}');" id="name{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.from_type{/yun}</span>
         <input class="input-text hidden" type="text" id="inputname{yun:}$v.id{/yun}" value="{yun:}$v.from_type{/yun}" onBlur="subname('{yun:}$v.id{/yun}');" >
@@ -117,6 +121,18 @@ function subname(id){
 		</td>
 		<td class="ud">
 		{yun:}$v.job_class_name{/yun}
+		</td>
+		<td class="ud">
+		{yun:}$v.job1_son{/yun}
+		</td>
+		<td class="ud">
+		{yun:}$v.job1_son_name{/yun}
+		</td>
+		<td class="ud">
+		{yun:}$v.job1{/yun}
+		</td>
+		<td class="ud">
+		{yun:}$v.job1_name{/yun}
 		</td>
 		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.sort{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" ></td>
 		<td class="ud">

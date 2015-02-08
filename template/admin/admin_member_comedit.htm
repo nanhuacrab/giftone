@@ -55,7 +55,11 @@ function cleartime(){
 <iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
 <form name="myform" target="supportiframe" action="index.php?m=admin_company&c={yun:}if is_array($com_info){/yun}edit{yun:}else{/yun}add{yun:}/if{/yun}" method="post" >
 <table width="100%" class="table_form" style="background:#fff;">
-<tr><td colspan="4"><font style="color:#3a6ea5;">基本资料</font></td></tr>
+<tr><td colspan="4"><font style="color:#3a6ea5;">基本资料</font>
+	<span>
+		<a href="{yun:}$row.original_page_url{/yun}" target="_blank">[{yun:}$row.original_page_url{/yun}]</a>
+	</span>
+</td></tr>
 <tr>
 		<th width="150" align="left">会员级别：</th>
 		<td width="200">
