@@ -20,8 +20,8 @@ class nanhuacrab_controller extends common{
 		}
 
 		echo "fix2";
-		
-		$companys=$this->obj->DB_select_all("company","`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT 0, 50");
+		$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT ".($pn*50).", 50";
+		$companys=$this->obj->DB_select_all("company",$where);
 		
 		foreach( $companys as $company ) {
 			$uids[] = $company["uid"];
@@ -34,8 +34,14 @@ class nanhuacrab_controller extends common{
 		foreach( $companys as $company ) {
 			$uid = $company["uid"];
 			$job = $jobsDic[$uid];
-			echo "<tr><td>".$uid."</td><td><a href='".$job["page_url"]."'></a></td></tr>";
+			echo "<tr><td class='uid'>".$uid."</td><td><a href='".$job["page_url"]."'></a></td></tr>";
 		}
+	}
+	
+	function fix3_action(){
+		$job_page_url = $_POST["job_page_url"];
+		$company_page_url = $_POST["company_page_url"];
+		$this->obj->DB_insert_once("giftone_company", "`job_page_url`='".$job_page_url."', `company_page_url`='".$company_page_url."', uid=0");
 	}
 	
 	function fix_action(){
