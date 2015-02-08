@@ -43,6 +43,7 @@ class job_controller extends common{
 			$data['hy']=$l['locoy_job_hy'];
 		}
 		//$job_row=$this->get_job_class($p['job_cate'],$l['locoy_rate']);
+		$data['test_remark'] = $p['job_cate'];
 		$job_row=$this->get_job_class_mapping(1,$p['job_cate'],$l['locoy_rate']); // 58Í¬³Ç
 			if($job_row){
 				$i=1;
@@ -59,7 +60,6 @@ class job_controller extends common{
 			}
 		
 		$city=$p['job_city']?$p['job_city']:$p['city'];
-		$data['test_remark'] = $city;
 		$city_row=$this->get_city($city,$l['locoy_rate']);
 			if($city_row){
 				$i=1;
@@ -161,7 +161,12 @@ class job_controller extends common{
 			$data['linkman']=trim($p['linkman']);
 			$data['linkjob']=trim($p['linkjob']);
 			$data['linkqq']=trim($p['linkqq']);
-			$data['linktel']=trim($p['moblie']);
+			if ( $p['moblie'] ){
+				$data['linktel']=trim($p['moblie']);
+			}else {
+				$data['linktel']=$data['linkphone']
+			}
+			
 			$data['website']=trim($p['website']);
 			if($p['com_sdate']){
 				$data['sdate']=date("Y-m-d",strtotime(trim($p['com_sdate'])));
@@ -282,6 +287,11 @@ class job_controller extends common{
 	function get_job_class_mapping($from_type,$name,$locoy_rate){
 		include(PLUS_PATH."job_class_mapping.cache.php");
 		
+		$index = strpos( $name, "£¨ÕÐ" );
+		if (false !== $index) {
+			$name = substr($name, 0, $index);
+		}
+		
 		$index = strpos( $name, "(ÕÐ" );
 		if (false !== $index) {
 			$name = substr($name, 0, $index);
@@ -291,8 +301,7 @@ class job_controller extends common{
 		if (false !== $index) {
 			$name = substr($name, 0, $index);
 		}
-		//echo '123'; die;
-		//echo $name; die;
+		
 		
 		$key = $from_type."_".$name;
 		$mapping = $job_class_mapping[$key];
