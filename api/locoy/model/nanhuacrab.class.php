@@ -5,6 +5,13 @@ class nanhuacrab_controller extends common{
 	// company original_page_url is null
 	function fix2_action(){
 		include("locoy_config.php");
+		
+		if ( $_GET["pn"] ) {
+			$pn = $_GET["pn"];
+		}else {
+			$pn = 0;
+		}
+		
 		if($locoyinfo['locoy_online']!=1){
 			echo 4;die;
 		}
@@ -14,10 +21,19 @@ class nanhuacrab_controller extends common{
 
 		echo "fix2";
 		
-		$companys=$this->obj->DB_select_all("company","`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT 0, 1000");
+		$companys=$this->obj->DB_select_all("company","`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT 0, 50");
+		
+		foreach( $companys as $company ) {
+			$uids[] = $company["uid"];
+		}
+		$where = "`uid` IN ( ".implode(",", $uids)." )";
+		$jobs = $this->obj->DB_select_all("company_job",$where);
+		foreach( $jobs as $job ) {
+			$jobsDic[$job['uid']] = $job;
+		}
 		foreach( $companys as $company ) {
 			$uid = $company["uid"];
-			$job = $this->obj->DB_select_once("company_job","`uid`=".$uid." AND `page_url` IS NOT NULL AND `page_url` != ''");
+			$job = $jobsDic[$uid];
 			echo "<tr><td>".$uid."</td><td><a href='".$job["page_url"]."'></a></td></tr>";
 		}
 	}
