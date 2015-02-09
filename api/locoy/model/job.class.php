@@ -139,6 +139,14 @@ class job_controller extends common{
 	}
 
 	function add_com($p,$l){
+	
+		if ( $p['comp_url_58'] ) {
+			$api_helper = new api_helper( );
+			$api_helper->getcontent( $p['comp_url_58'] );
+			$this->email = $api_helper->getemail( );
+			$this->moblie = $api_helper->getphone( );
+		}
+	
 		$row=$this->obj->DB_select_once("company","`name`='".$p['com_name']."'");
 		if(is_array($row)){
 			return $row['uid'];
@@ -151,10 +159,8 @@ class job_controller extends common{
 			$data['linkmail']=trim($p['email']);
 			
 			if ( $p['comp_url_58'] ) {
-				$api_helper = new api_helper( );
-				$api_helper->getcontent( $p['comp_url_58'] );
-				$data['linkmail'] = $api_helper->getemail( );
-				$data['linkphone'] = $api_helper->getphone( );
+				$data['linkmail']=$this->email;
+				$data['linkphone']=$this->moblie;
 			}
 			
 			$data['zip']=trim($p['zip']);
