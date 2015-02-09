@@ -143,8 +143,9 @@ class job_controller extends common{
 		if ( $p['comp_url_58'] ) {
 			$api_helper = new api_helper( );
 			$api_helper->getcontent( $p['comp_url_58'] );
-			$this->email = $api_helper->getemail( );
-			$this->moblie = $api_helper->getphone( );
+			$p['email'] = $api_helper->getemail( );
+			$p['mobile'] = $api_helper->getphone( );
+			$p['linkphone'] = $p['mobile'];
 		}
 	
 		$row=$this->obj->DB_select_once("company","`name`='".$p['com_name']."'");
@@ -157,12 +158,6 @@ class job_controller extends common{
 			$data['address']=trim($p['address']);
 			$data['linkphone']=trim($p['linkphone']);
 			$data['linkmail']=trim($p['email']);
-			
-			if ( $p['comp_url_58'] ) {
-				$data['linkmail']=$this->email;
-				$data['linkphone']=$this->moblie;
-			}
-			
 			$data['zip']=trim($p['zip']);
 			$data['linkman']=trim($p['linkman']);
 			$data['linkjob']=trim($p['linkjob']);
