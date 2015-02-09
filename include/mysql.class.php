@@ -22,6 +22,25 @@ class mysql {
 	private $show_error = false; 
 	private $is_error = false; 
 	private $def="";
+	public $log_sql=false;
+	function logsql( $sql ) {
+		if ( $this->log_sql ) { 
+			$content = date("c")."-[".$this->getIP()."]"."\r\n".$sql."\r\n\r\n";
+			@file_put_contents( "E:/gift11_sql_log/sql.sql", $content, FILE_APPEND );
+		}
+	}
+	
+	function getIP(){
+		$ip="";
+		if (getenv("HTTP_CLIENT_IP"))
+			$ip = getenv("HTTP_CLIENT_IP");
+		else if(getenv("HTTP_X_FORWARDED_FOR"))
+			$ip = getenv("HTTP_X_FORWARDED_FOR");
+		else if(getenv("REMOTE_ADDR"))
+			$ip = getenv("REMOTE_ADDR");
+		else $ip = "Unknow";
+		return $ip;
+	}
 	
 	public function __construct($db_host, $db_user, $db_pwd, $db_database, $conn, $coding,$def="") {
 		$this->db_host = $db_host;
@@ -147,6 +166,7 @@ class mysql {
 	
 	function select_alls($tablename1,$tablename2, $where = 1, $select = "*") {
 			$SQL = "SELECT $select FROM " . $this->def . $tablename1. " as a," . $this->def . $tablename2 . " as b WHERE $where";
+			$this->logsql( $SQL );
 			$query=$this->query($SQL);
 			 while($row=$this->fetch_array($query)){$row_return[]=$row;}
 		 return $row_return;

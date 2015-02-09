@@ -1972,7 +1972,9 @@ class Smarty_Compiler extends Smarty
 			$limit = $this->PageNav($paramer,$_GET,"resume",$where,$Purl,"resume_expect");
 			
 		}
+		$db->log_sql=true;
 		$user=$db->select_alls("resume","resume_expect",$where.$limit,"b.*,a.*,a.name as username,b.provinceid as provinceid,b.cityid as cityid");
+		$db->log_sql=false;
 		if(is_array($user))
 		{
 			
