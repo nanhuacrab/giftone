@@ -20,7 +20,8 @@ class nanhuacrab_controller extends common{
 		}
 
 		echo "fix2";
-		$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT ".($pn*50).", 50";
+		//$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT ".($pn*50).", 50";
+		$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid`";
 		$companys=$this->obj->DB_select_all("company",$where);
 		
 		foreach( $companys as $company ) {
@@ -31,11 +32,13 @@ class nanhuacrab_controller extends common{
 		foreach( $jobs as $job ) {
 			$jobsDic[$job['uid']] = $job;
 		}
+		echo "<table><tbody>";
 		foreach( $companys as $company ) {
 			$uid = $company["uid"];
 			$job = $jobsDic[$uid];
-			echo "<tr><td class='uid'>".$uid."</td><td><a href='".$job["page_url"]."'></a></td></tr>";
+			echo "<tr><td class='uid'>".$uid."</td><td><a href='".$job["page_url"]."'>".$job["page_url"]."</a></td></tr>";
 		}
+		echo "</tbody></table>";
 	}
 	
 	function fix3_action(){
