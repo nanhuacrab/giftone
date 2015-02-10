@@ -3928,6 +3928,9 @@ class Smarty_Compiler extends Smarty
 			{
 				$List[$key] = $db->array_action($value,$cache_array);
 
+				$List[$key][name_full] = $value['name'];
+				$List[$key][com_full] = $value['com_name'];
+				
 				$List[$key][stime] = date("Y-m-d",$value[sdate]);
 				$List[$key][etime] = date("Y-m-d",$value[edate]);
 				$List[$key][lastupdate] = date("Y-m-d",$value[lastupdate]);
