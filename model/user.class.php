@@ -72,6 +72,7 @@ class user_controller extends common
 		if($_GET['salary']){$finder['salary']=$_GET['salary'];}
 		if($_GET['adtime']){$finder['adtime']=$_GET['adtime'];}
 		if($_GET['word']){$finder['word']=$_GET['word'];}
+		if($_GET['provinceid']){$finder['provinceid']=$_GET['provinceid'];}
 		if($_GET['cityid']){
 			$searchcondition[]=$Array['city_name'][$_GET['cityid']];
 			$finder['cityid']=$_GET['cityid'];

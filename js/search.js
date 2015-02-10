@@ -116,13 +116,21 @@ function showcity(id){
 function guanbicity(id){
    $("#td_city"+id).bind("mouseleave", function(){
 	$("#td_city"+id).attr("class","blurItem");
-	$("#span_city"+id).show();
+	//$("#span_city"+id).show();
+	$("#span_city"+id).css("display","");
 	$("#div_city"+id).hide();
    });
 }
 function checkcity(id,name){
 	$("#city").val(name);
 	$("#cityid").val(id);
+	$("#provinceid").val("");
+	 layer.closeAll();
+}
+function checkprovince(id,name){
+	$("#city").val(name);
+	$("#cityid").val("");
+	$("#provinceid").val(id);
 	 layer.closeAll();
 }
 function showjob(id){

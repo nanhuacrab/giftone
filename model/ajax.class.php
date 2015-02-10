@@ -1683,9 +1683,9 @@ class ajax_controller extends common{
 		{
 			foreach($city_index as $j=>$v)
 			{
-				$html.=' <td class="blurItem" width="15%" id="td_city'.$v.'" onclick="showcity(\''.$v.'\')" onmouseout="guanbicity(\''.$v.'\');"><span class="availItem" style="display: ;" id="span_city'.$v.'" >'.$city_name[$v].'</span>
+				$html.=' <td class="blurItem" width="15%" id="td_city'.$v.'" onclick="showcity(\''.$v.'\')" onmouseout="guanbicity(\''.$v.'\');"><span class="availItem" style="" id="span_city'.$v.'" onclick="checkprovince(\''.$v.'\',\''.$city_name[$v].'\');" >'.$city_name[$v].'</span>
                 <div class="seach_tck_box_hy" style="display:none;" id="div_city'.$v.'" >';
-                $html.='<div class="s_b_city_icon"></div><span>'.$city_name[$v].'</span>';
+                $html.='<div class="s_b_city_icon"></div><span onclick="checkcity(\''.$v.'\',\''.$city_name[$v].'\');">'.$city_name[$v].'</span>';
 				if (($j+1)%6==0 || ($j+1)%6==4 || ($j+1)%6==5){
 					$html.='<div class="sPopupDivSubJobname sPopupDivSubCity" style="background-position:-2px -1px;z-index:1001;left:-246px; top: 19px; ">';
 				}else{

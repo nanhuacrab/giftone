@@ -54,6 +54,7 @@ DD_belatedPNG.fix('.png');
  <div class="seach_industry">
  <span class="Search_jobs_name">所在地区：</span> <input type="button"  id="city" value="{yun:}if $city_name[$getinfo.cityid]!=""{/yun}{yun:}$city_name[$getinfo.cityid]{/yun}{yun:}else{/yun}请选择工作地区{yun:}/if{/yun}" onclick="index_city();" class="Search_jobs_bth">
  <input type="hidden" name="cityid" id="cityid" value="{yun:}$getinfo.cityid{/yun}"/>
+ <input type="hidden" name="provinceid" id="provinceid" value="{yun:}$getinfo.provinceid{/yun}"/>
  </div>
  </div> 
 {yun:}if $getinfo.cityid{/yun}
@@ -146,6 +147,7 @@ DD_belatedPNG.fix('.png');
  <div class="Search_jobs_xz"> 
  {yun:}if $smarty.get.hy{/yun}<a href="{yun:}seacrh_url m=user untype=hy{/yun}" class="Search_jobs_c_a">{yun:}$industry_name[$smarty.get.hy]{/yun}</a>{yun:}/if{/yun} 
  {yun:}if $jobnames{/yun}<a href="{yun:}seacrh_url m=user untype=jobids{/yun}" class="Search_jobs_c_a">{yun:}$jobnames{/yun}</a>{yun:}/if{/yun} 
+ {yun:}if $smarty.get.provinceid{/yun}<a href="{yun:}seacrh_url m=user untype=provinceid{/yun}" class="Search_jobs_c_a">{yun:}$city_name[$smarty.get.provinceid]{/yun}</a>{yun:}/if{/yun} 
  {yun:}if $smarty.get.cityid{/yun}<a href="{yun:}seacrh_url m=user untype=cityid,three_cityid{/yun}" class="Search_jobs_c_a">{yun:}$city_name[$smarty.get.cityid]{/yun}</a>{yun:}/if{/yun} 
 {yun:}if $smarty.get.three_cityid{/yun}<a href="{yun:}seacrh_url m=user untype=three_cityid{/yun}" class="Search_jobs_c_a">{yun:}$city_name[$smarty.get.three_cityid]{/yun}</a>{yun:}/if{/yun} 
  {yun:}if $smarty.get.adtime{/yun}<a href="{yun:}seacrh_url m=user untype=adtime{/yun}" class="Search_jobs_c_a">{yun:}$adtime[$smarty.get.adtime]{/yun}</a>{yun:}/if{/yun} 
