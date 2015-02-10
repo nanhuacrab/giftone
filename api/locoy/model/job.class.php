@@ -392,8 +392,10 @@ class job_controller extends common{
 		
 		$str = $str - 1;
 		if ( $str <= "1000" ) { return "47"; }
-		else if ( $str >= "20000" ) { return "129"; }
-		else if ( $str >= "15000" ) { return "130"; }
+		else if ( $str >= "50000" ) { return "132"; }
+		else if ( $str >= "30000" ) { return "131"; }
+		else if ( $str >= "20000" ) { return "130"; }
+		else if ( $str >= "15000" ) { return "129"; }
 		else if ( $str >= "10000" ) { return "53"; }
 		else if ( $str >= "8000" ) { return "52"; }
 		else if ( $str >= "6000" ) { return "51"; }
