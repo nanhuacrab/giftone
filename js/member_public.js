@@ -546,6 +546,9 @@ $(function(){
 	if($(evt.target).parents("#job_report").length==0 && evt.target.id != "report") {
 	   $('#job_report').hide();
 	}	
+	if($(evt.target).parents("#job_search_status").length==0 && evt.target.id != "search_status") {
+		$('#job_search_status').hide();
+	}
 	if($(evt.target).parents("#job_province").length==0 && evt.target.id != "province") {
 	   $('#job_province').hide();
 	}	

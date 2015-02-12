@@ -113,6 +113,7 @@ function SendMsg(){
               <th align="left">姓名</th>
               <th align="left">EMAIL</th>
               <th align="left">手机号</th>
+			  <th align="left">QQ</th>
               <th> {yun:}if $smarty.get.t=="reg_date" && $smarty.get.order=="asc"{/yun} <a href="index.php?m=user_member&order=desc&t=reg_date">注册时间<img src="images/sanj.jpg"/></a> {yun:}else{/yun} <a href="index.php?m=user_member&order=asc&t=reg_date">注册时间<img src="images/sanj2.jpg"/></a> {yun:}/if{/yun}</th>
               <th> {yun:}if $smarty.get.t=="login_date" && $smarty.get.order=="asc"{/yun} <a href="index.php?m=user_member&order=desc&t=login_date">最近登录时间<img src="images/sanj.jpg"/></a> {yun:}else{/yun} <a href="index.php?m=user_member&order=asc&t=login_date">最近登录时间<img src="images/sanj2.jpg"/></a> {yun:}/if{/yun}</th>
               <th>登录IP</th>
@@ -137,6 +138,7 @@ function SendMsg(){
               {yun:}$v.telphone{/yun}<br>
               {yun:}if $moblie_promiss{/yun}<span onClick="send_moblie('{yun:}$v.moblie{/yun}');" style="color:green; cursor:pointer;">发信息</span> {yun:}/if{/yun}
               {yun:}/if{/yun} </td>
+			<td>{yun:}$v.qq{/yun}</td>
             <td class="td" align="left">{yun:}$v.reg_date|date_format:"%Y-%m-%d"{/yun}</td>
             <td>{yun:}if $v.login_date!=""{/yun}{yun:}$v.login_date|date_format:"%Y-%m-%d"{/yun}
               {yun:}else{/yun}<font color="#FF0000">从未登录</font>{yun:}/if{/yun}</td>

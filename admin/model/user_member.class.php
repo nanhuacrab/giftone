@@ -69,7 +69,7 @@ class user_member_controller extends common
  		$num = count($count);
  		$page = new page($page,$limit,$num,$pageurl);
 		$pagenav=$page->numPage();
-		$userrows=$this->obj->DB_select_alls("resume","member","a.`uid`=b.`uid` $where limit $ststrsql,$limit","a.name,a.telphone,b.*");
+		$userrows=$this->obj->DB_select_alls("resume","member","a.`uid`=b.`uid` $where limit $ststrsql,$limit","a.name,a.telphone,a.qq,b.*");
 		$this->yunset("pagenav",$pagenav);
 		$this->yunset("userrows",$userrows);
 		$nav_user=$this->obj->DB_select_alls("admin_user","admin_user_group","a.`m_id`=b.`id` and a.`uid`='".$_SESSION['auid']."'");

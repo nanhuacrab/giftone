@@ -141,6 +141,7 @@ class expect_controller extends user{
 				include APP_PATH."/plus/city.cache.php";
 				include APP_PATH."/plus/industry.cache.php";
 				$resume['report']=$userclass_name[$resume['report']];
+				$resume['job_search_status']=$userclass_name[$resume['job_search_status']];
 				$resume['hy']=$industry_name[$resume['hy']];
 				$resume['city']=$city_name[$resume['provinceid']]." ".$city_name[$resume['cityid']]." ".$city_name[$resume['three_cityid']];
 				$resume['salary']=$userclass_name[$resume['salary']];

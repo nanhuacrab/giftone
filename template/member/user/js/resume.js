@@ -670,6 +670,7 @@ function saveexpect(){
 	var salary = $.trim($("#salaryid").val()); 
 	var type = $.trim($("#typeid").val()); 
 	var report = $.trim($("#reportid").val());
+	var search_status = $.trim($("#search_statusid").val());
 	var eid = $.trim($("#eid").val());
 	if(name==""||name=="例如: 求销售员工作 2年工作经验"){layer.msg('请填写简历名称！', 2, 2);return false; }
 	if(hy==""){layer.msg('请选择从事行业！', 2, 2);return false;}
@@ -678,8 +679,9 @@ function saveexpect(){
 	if(salary==""){layer.msg('请选择望月薪水！', 2, 2);return false;}
 	if(type==""){layer.msg('请选择工作性质！', 2, 2);return false;}
 	if(report==""){layer.msg('请选择到岗时间！', 2, 2);return false;}
+	if(search_status==""){layer.msg('请选择求职意向！', 2, 2);return false;}
 	layer.load('执行中，请稍候...',0);
-	$.post("index.php?c=expect&act=saveexpect",{name:name,hy:hy,job_classid:job_classid,provinceid:provinceid,cityid:cityid,three_cityid:three_cityid,salary:salary,type:type,report:report,eid:eid,submit:"1",dom_sort:getDomSort()},function(data){
+	$.post("index.php?c=expect&act=saveexpect",{name:name,hy:hy,job_classid:job_classid,provinceid:provinceid,cityid:cityid,three_cityid:three_cityid,salary:salary,type:type,report:report,job_search_status:search_status,eid:eid,submit:"1",dom_sort:getDomSort()},function(data){
 		layer.closeAll();
 		if(data==0){
 			layer.msg('操作失败！', 2, 8);
@@ -694,7 +696,7 @@ function saveexpect(){
 				$("#getexpect").show();
 				numresume(data.numresume,'expect');
 				$("#eid").val(data.id);
-				var html='<li><span>简历名称：</span>'+data.name+'</li><li><span>到岗时间：</span>'+data.report+'</li><li><span>期望从事行业：</span>'+data.hy+'</li><li><span>期望工作地点：</span>'+data.city+'</li><li><span>期望月薪水：</span>'+data.salary+'</li><li><span>期望工作性质：</span>'+data.type+'</li><li class="expect_amend_end"><span>期望从事职位：</span><em>'+data.job_classname+'</em></li>';
+				var html='<li><span>简历名称：</span>'+data.name+'</li><li><span>到岗时间：</span>'+data.report+'</li><li><span>期望从事行业：</span>'+data.hy+'</li><li><span>期望工作地点：</span>'+data.city+'</li><li><span>期望月薪水：</span>'+data.salary+'</li><li><span>期望工作性质：</span>'+data.type+'</li><li><span>求职意向：</span>'+data.job_search_status+'</li><li class="expect_amend_end"><span>期望从事职位：</span><em>'+data.job_classname+'</em></li>';
 				$("#expect").html(html);
 				layer.msg('操作成功！', 2,9,function(){ScrollTo("expect_botton");$(".resume_expect").addClass('state_done');}); 
 			}

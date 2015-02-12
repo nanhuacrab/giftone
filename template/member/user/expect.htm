@@ -75,7 +75,8 @@ h1{width:90%;height:40px; display:block; float:left;}
           <li><span>婚育状况：</span>{yun:}$userclass_name[$resume.marriage]{/yun}</li>
           <li><span>民族：</span>{yun:}$resume.nationality{/yun}</li>
           <li><span>座机：</span>{yun:}$resume.telhome{/yun}</li>
-          <li><span>个人主页：</span>{yun:}$resume.homepage{/yun}</li>
+		  <li><span>QQ：</span>{yun:}$resume.qq{/yun}</li>
+          <li class="expect_amend_end"><span>个人主页：</span>{yun:}$resume.homepage{/yun}</li>
 		   <li class="expect_amend_end"><span>户籍所在地：</span>{yun:}$resume.domicile{/yun}</li>
 		   <li class="expect_amend_end"> <span>详细地址：</span>{yun:}$resume.address{/yun}</li>
           {yun:}/if{/yun}
@@ -181,6 +182,13 @@ h1{width:90%;height:40px; display:block; float:left;}
                 <span id="by_telphone"  style="display:none">请正确填写手机号码</span> </div>
             </li>
 
+			<li class="short">
+              <div class="name"> QQ：</div>
+              <div class="text">
+                <input name="qq" id="qq" type="text" value="{yun:}$resume.qq{/yun}" class="info_text"/>
+                <span id="by_qq"  style="display:none">请正确填写QQ号</span> </div>
+            </li>
+			
             <li class="short">
               <div class="name"> <b>*</b> 电子邮件：</div>
               <div class="text">
@@ -275,6 +283,7 @@ h1{width:90%;height:40px; display:block; float:left;}
           <li><span>期望工作地点：</span>{yun:}$city_name[$row.provinceid]{/yun} {yun:}$city_name[$row.cityid]{/yun} {yun:}$city_name[$row.three_cityid]{/yun}</li>
           <li><span>期望月薪水：</span>{yun:}$userclass_name[$row.salary]{/yun}</li>
 		  <li><span>期望工作性质：</span>{yun:}$userclass_name[$row.type]{/yun}</li>
+		  <li><span>求职意向：</span>{yun:}$userclass_name[$row.job_search_status]{/yun}</li>
           <li class="expect_amend_end"><span>期望从事职位：</span><em>{yun:}$job_classname{/yun}</em></li>
         </ul>
       </div>
@@ -389,6 +398,22 @@ h1{width:90%;height:40px; display:block; float:left;}
                 </div>
                </div>
             </li>
+			<li>
+				<div class="name"><b>*</b> 求职意向：</div>
+				<div class="text">
+					<div class="text_seclet text_seclet_cur4 fltL" style="z-index:85;">
+						<input class="SpFormLBut text_seclet_w250" type="button" {yun:}if $row.job_search_status{/yun} value="{yun:}$userclass_name[$row.job_search_status]{/yun}" {yun:}else{/yun}value="请选择求职意向"{yun:}/if{/yun} id="search_status" onclick="search_show('job_search_status');">
+						<input type="hidden" id="search_statusid" name="search_status" value="{yun:}$row.job_search_status{/yun}" />
+						<div  class="cus-sel-opt-panel cus-sel-opt-panel-w250" style="display:none;" id="job_search_status">
+							<ul class="Search_Condition_box_list">
+							  {yun:}foreach from=$userdata.user_jobsearchstatus key=j item=v{/yun}
+							  <li><a href="javascript:;" onclick="selects('{yun:}$v{/yun}','search_status','{yun:}$userclass_name[$v]{/yun}');"> {yun:}$userclass_name[$v]{/yun}</a></li>
+							  {yun:}/foreach{/yun}
+							</ul>
+						  </div>
+					</div>
+				</div>
+			</li>
             <li>
               <div class="name"><b>*</b> 到岗时间：</div>
               <div class="text">
