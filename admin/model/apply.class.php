@@ -116,6 +116,9 @@ class apply_controller extends common
 				}
 			}
 		}
+		include APP_PATH."/plus/com.cache.php";
+		$CacheArr['com'] =array('comdata','comclass_name');
+		$this->CacheInclude($CacheArr);
 		$this->yunset("list",$list);
 		$this->yuntpl(array('admin/apply'));
 	}
