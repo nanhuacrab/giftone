@@ -169,7 +169,7 @@ class admin_company_controller extends common
 			$urlarr['order']=$_GET['order'];
 			$urlarr['t']=$_GET['t'];
 		}else{
-			$where.=" order by `uid` desc";
+			$where.=" order by `original_page_url`,`uid` desc";
 		}
 		$urlarr['page']="{{page}}";
 		$pageurl=$this->url("index",$_GET['m'],$urlarr);

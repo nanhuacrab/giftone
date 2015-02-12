@@ -1,7 +1,11 @@
 <?php 
-$keyword=array('0'=>array('id'=>'25','key_name'=>'工程师','num'=>'235','type'=>'5','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
-,'1'=>array('id'=>'27','key_name'=>'软件工程师','num'=>'98','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
-,'2'=>array('id'=>'31','key_name'=>'销售','num'=>'8','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+$keyword=array('0'=>array('id'=>'25','key_name'=>'工程师','num'=>'283','type'=>'5','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'1'=>array('id'=>'27','key_name'=>'软件工程师','num'=>'147','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'2'=>array('id'=>'31','key_name'=>'销售','num'=>'12','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'3'=>array('id'=>'28','key_name'=>'DBA','num'=>'4','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'4'=>array('id'=>'40','key_name'=>'java','num'=>'4','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'5'=>array('id'=>'29','key_name'=>'助理','num'=>'2','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
+,'6'=>array('id'=>'39','key_name'=>'html5','num'=>'2','type'=>'3','size'=>'','color'=>'#','bold'=>'1','tuijian'=>'1')
 )
 ; 
 ?>

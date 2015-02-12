@@ -52,7 +52,13 @@ DD_belatedPNG.fix('.png');
   <input type="hidden" id="job_class" name="jobids" value="{yun:}$getinfo.jobids{/yun}" />
   </div>
  <div class="seach_industry">
- <span class="Search_jobs_name">所在地区：</span> <input type="button"  id="city" value="{yun:}if $city_name[$getinfo.cityid]!=""{/yun}{yun:}$city_name[$getinfo.cityid]{/yun}{yun:}else{/yun}请选择工作地区{yun:}/if{/yun}" onclick="index_city();" class="Search_jobs_bth">
+ <span class="Search_jobs_name">所在地区：</span> 
+ 
+ {yun:}if $getinfo.provinceid{/yun}
+ <input type="button"  id="city" value="{yun:}if $city_name[$getinfo.provinceid]!=""{/yun}{yun:}$city_name[$getinfo.provinceid]{/yun}{yun:}else{/yun}请选择工作地区{yun:}/if{/yun}" onclick="index_city();" class="Search_jobs_bth">
+ {yun:}else if $getinfo.cityid{/yun}
+ <input type="button"  id="city" value="{yun:}if $city_name[$getinfo.cityid]!=""{/yun}{yun:}$city_name[$getinfo.cityid]{/yun}{yun:}else{/yun}请选择工作地区{yun:}/if{/yun}" onclick="index_city();" class="Search_jobs_bth">
+ {yun:}/if{/yun}
  <input type="hidden" name="cityid" id="cityid" value="{yun:}$getinfo.cityid{/yun}"/>
  <input type="hidden" name="provinceid" id="provinceid" value="{yun:}$getinfo.provinceid{/yun}"/>
  </div>
