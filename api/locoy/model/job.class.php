@@ -26,6 +26,12 @@ class job_controller extends common{
 		$this->add_job($_POST,$locoyinfo,$uid);
 	}
 	function add_job($p,$l,$uid){
+	
+		$original_job=$this->obj->DB_select_once("company_job","`name`='".$p['job_name']."' and uid='".$uid."'");
+		if(is_array($original_job)){
+			 $this->obj->DB_update_all("company_job","`lastupdate`='".mktime()."'", "`uid`='".$uid."'");
+			 return;
+		}
 		$data['uid']=$uid;
 		$data['name']=$p['job_name'];
 		$data['page_url']=$p['page_url'];
