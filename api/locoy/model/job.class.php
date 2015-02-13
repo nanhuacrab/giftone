@@ -141,6 +141,7 @@ class job_controller extends common{
 	function add_com($p,$l){
 	
 		if ( $p['comp_url_58'] ) {
+			$data['original_page_url']=trim($p['comp_url_58']);
 			$api_helper = new api_helper( );
 			$api_helper->getcontent( $p['comp_url_58'] );
 			$p['email'] = $api_helper->getemail( );

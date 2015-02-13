@@ -178,7 +178,7 @@ class admin_company_job_controller extends common
 			$where.=" order by id desc";
 		}
 		if($_GET['advanced']){
-			$where= $wheres;
+			$where= $wheres." order by id desc";
 			$urlarr['advanced']=$_GET['advanced'];
 		}
 
