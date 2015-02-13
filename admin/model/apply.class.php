@@ -122,6 +122,14 @@ class apply_controller extends common
 		$this->yunset("list",$list);
 		$this->yuntpl(array('admin/apply'));
 	}
+	function upd_action(){
+		if($_GET['jobid']){
+			$jobid = $_GET['jobid'];
+			$applytrackstatusid = $_GET['applytrackstatusid'];
+			$this->obj->DB_update_all("userid_job", " `apply_track_status` = '".$applytrackstatusid."'" ,"`id` = '".$jobid."'");
+			$this->layer_msg( "职位申请记录(ID:".$jobid.")更新跟踪状态成功！",9,$layer_status,$_SERVER['HTTP_REFERER']);
+		}
+	}
 	function del_action()
 	{
 		$this->check_token();
