@@ -71,9 +71,18 @@ function subname(id){
 
 <div class="infoboxp"> 
 <div class="infoboxp_top_bg"></div>
-<div class="infoboxp_top">
-<span class="admin_title_span">职位类型匹配关系</span>
-<a  href="javascript:void(0)" onClick="add_class('添加类别','300','140','#houtai_div','')" class="admin_infoboxp_tj">添加类别</a>
+<div class="admin_Filter"> 
+<span class="complay_top_span fl">职位类型匹配关系</span>
+<div class="admin_Filter_span">来源类型：</div>
+	<div class="admin_Filter_text formselect" did="dtype"> 
+  <input type="button" value="{yun:}$from_type_name{/yun}" class="admin_Filter_but" id="btype">
+  		   <input type="hidden" name="com_type" id="type" value="1"><div class="admin_Filter_text_box" style="display:none" id="dtype">
+			  <ul>
+				  <li><a href="index.php?m=admin_job_class_mapping&t=1">58同城</a></li>
+				  <li><a href="index.php?m=admin_job_class_mapping&t=2">51job</a></li>
+			  </ul>  
+		  </div>
+    </div>
 </div>
 <div class="table-list">
   <div class="admin_table_border">
@@ -85,7 +94,7 @@ function subname(id){
 	<tr class="admin_table_top">
    		<th width="50"><label for="chkall"> <input type="checkbox" id='chkAll' onclick='CheckAll(this.form)' /></label></th>
 		<th width="60">Id</th>
-		<th>来源<span class="clickup">(点击修改)</span></th>
+		<th>来源</th>
 		<th>匹配字符</th>
 		<th>系统职位类型Id</th>
 		<th>系统职位类型</th>
@@ -93,7 +102,7 @@ function subname(id){
 		<th>job1_son_name</th>
 		<th>job1</th>
 		<th>job1_name</th>
-		<th width="180" class="admin_table_th_bg">操作</th>
+		<th width="50" class="admin_table_th_bg">操作</th>
 	</tr>
 	</thead>
 	<tbody>	 
