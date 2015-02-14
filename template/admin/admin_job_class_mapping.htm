@@ -112,7 +112,7 @@ function subname(id){
   	    <td width="50"><input type="checkbox" value="{yun:}$v.id{/yun}" name='del[]' onclick='unselectall()' rel="del_chk" /></td>
 		<td class="ud">{yun:}$v.id{/yun}</td>
 		<td class="ud" align="left">
-		{yun:}if 1 == $v.from_type{/yun}58同城{yun:}/if{/yun}
+		{yun:}if 1 == $v.from_type{/yun}58同城{yun:}elseif 2 == $v.from_type{/yun}51job{yun:}/if{/yun}
 		<!--
 		<span onClick="checkname('{yun:}$v.id{/yun}');" id="name{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.from_type{/yun}</span>
         <input class="input-text hidden" type="text" id="inputname{yun:}$v.id{/yun}" value="{yun:}$v.from_type{/yun}" onBlur="subname('{yun:}$v.id{/yun}');" >
@@ -145,7 +145,7 @@ function subname(id){
 		</td>
 		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.sort{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" ></td>
 		<td class="ud">
-      
+      <a href="javascript:void(0)" onclick="upp_job_class_mapping('{yun:}$v.match{/yun}','400','220','#wname','index.php?m=userclass&c=save',{yun:}$v.job1{/yun},'{yun:}$v.job1_name{/yun}',{yun:}$v.job1_son{/yun},'{yun:}$v.job1_son_name{/yun}',{yun:}$v.job_class_id{/yun},'{yun:}$v.job_class_name{/yun}')" class="admin_cz_sc">修改</a>
         <!--<a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=admin_industry&c=del&delid={yun:}$v.id{/yun}');"class="admin_cz_sc">删除</a>-->
 		</td>
 	</tr> 
