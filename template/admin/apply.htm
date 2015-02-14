@@ -12,7 +12,7 @@
 <script language="javascript">
 function changeapplytrackstatus(jobid){
 	//console.log(jobid);
-	var element = jQuery(this.event.target);
+	var element = jQuery(arguments[1]);
 	var applytrackstatusid = element.val();
 	//console.log(applytrackstatus);
 	layer_del('','index.php?m=apply&c=upd&jobid='+jobid+'&applytrackstatusid='+applytrackstatusid);
@@ -99,7 +99,7 @@ function changeapplytrackstatus(jobid){
             <td class="td" align="center">{yun:}if $v.is_browse==2{/yun}已查看{yun:}else{/yun}未查看{yun:}/if{/yun}</td>
 			
 			<td class="td" align="center">
-				<select onchange="changeapplytrackstatus({yun:}$v.id{/yun})">
+				<select onchange="changeapplytrackstatus({yun:}$v.id{/yun}, this)">
 				{yun:}foreach item=j from=$comdata.job_apply_track_status{/yun}
 					<option value="{yun:}$j{/yun}" {yun:}if $j==$v.apply_track_status{/yun}selected{yun:}/if{/yun}>{yun:}$comclass_name[$j]{/yun}</option>
 				{yun:}/foreach{/yun}
