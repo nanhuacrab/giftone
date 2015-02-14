@@ -12,6 +12,42 @@
 <title>后台管理</title>
 </head>
 <body class="body_ifm"> 
+<!--弹出框-->
+<div id="wname"  style="display:none; width: 300px; "> 
+	<div style="height: 160px;" class="job_box_div">  
+	   <div class="job_box_inp">
+		<table class="table_form "style="width:100%">
+			<tr><td style="text-align: right;">匹配字符:</td><td><span name="match" id='match'></span></td></tr>
+			<tr><td style="text-align: right;">job1:</td>
+				<td>
+				<div class="admin_Filter_text formselect" did="dtype_job1"> 
+					<input type="hidden" class="admin_Filter_but" id="job1" />
+					<input type="button" class="admin_Filter_but" id="job1_name" />
+					<div class="admin_Filter_text_box" id="dtype_job1" style="display: none;">
+					  <ul>
+					  {yun:}foreach item=v from=$job_index{/yun}
+						  <li><a href="javascript:void(0)">{yun:}$job_name[$v]{/yun}</a></li>
+					  {yun:}/foreach{/yun}
+					  </ul>  
+					</div>
+				</div>
+				</td>
+			</tr>
+			<tr><td style="text-align: right;">job1_son:</td>
+				<td>
+				</td>
+			</tr>
+			<tr><td style="text-align: right;">系统职位类型Id:</td>
+				<td>
+				
+				</td>
+			</tr>
+ 			<tr><td colspan='2' class='ui_content_wrap' style="border-bottom:none"><input class="admin_submit4" type="button" value="保存 " onClick=""/></td></tr> 
+		</table> 
+	   </div>
+	</div>
+</div> 
+<!--弹出框end-->
 <script type="text/javascript">  
 function save_industry(){
 	var pytoken=$("#pytoken").val(); 
@@ -66,6 +102,32 @@ function subname(id){
 		if(data!=1){config_msg(data);}else{location.reload();}
 	})
 }
+
+function upp_job_class_mapping(match,width,height,divid,url,job1,job1_name,job1_son,job1_son_name,job_class_id,job_class_name){
+	if(url){$(divid).append("<input id='surl' value='"+url+"' type='hidden'/>");}
+	$.layer({
+		type : 1,
+		title : '职位类型匹配关系',
+		offset: [($(window).height() - height)/2 + 'px', ''],
+		closeBtn : [0 , true],
+		border : [10 , 0.3 , '#000', true],
+		area : [width+'px',height+'px'],
+		page : {dom :divid}
+	});
+	jQuery(divid).find('span#match').text(match);
+	jQuery(divid).find('input#job1').val(job1);
+	jQuery(divid).find('input#job1_name').val(job1_name);
+	jQuery(divid).find('input#job1_son').val(job1_son);
+	jQuery(divid).find('input#job1_son_name').val(job1_son_name);
+	jQuery(divid).find('input#job_class_id').val(job_class_id);
+	jQuery(divid).find('input#job_class_name').val(job_class_name);
+}
+function show_jobsub( job1 ) {
+	$.get('index.php?m=admin_job_class_mapping&c=getsubjob&jobid='.job1,function(data) {
+		jQuery( "select#job1_son").html( data );
+	});
+}
+
 </script> 
 <span id="temp"></span>
 
