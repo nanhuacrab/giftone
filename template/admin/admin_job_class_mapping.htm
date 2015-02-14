@@ -35,11 +35,29 @@
 			</tr>
 			<tr><td style="text-align: right;">job1_son:</td>
 				<td>
+				<div class="admin_Filter_text formselect" did="dtype_job1_son"> 
+					<input type="hidden" class="admin_Filter_but" id="job1_son" />
+					<input type="button" class="admin_Filter_but" id="job1_son_name" />
+					<div class="admin_Filter_text_box" id="dtype_job1_son" style="display: none;">
+					  <ul>
+						  {yun:}foreach item=v from=$job_index{/yun}
+							  <li><a href="javascript:void(0)">{yun:}$job_name[$v]{/yun}</a></li>
+						  {yun:}/foreach{/yun}
+					  </ul>  
+					</div>
+				</div>
 				</td>
 			</tr>
 			<tr><td style="text-align: right;">系统职位类型Id:</td>
 				<td>
-				
+				<div class="admin_Filter_text formselect" did="dtype_job_class"> 
+					<input type="hidden" class="admin_Filter_but" id="job_class_id" />
+					<input type="button" class="admin_Filter_but" id="job_class_name" />
+					<div class="admin_Filter_text_box" id="dtype_job_class" style="display: none;">
+					  <ul>
+					  </ul>  
+					</div>
+				</div>
 				</td>
 			</tr>
  			<tr><td colspan='2' class='ui_content_wrap' style="border-bottom:none"><input class="admin_submit4" type="button" value="保存 " onClick=""/></td></tr> 
