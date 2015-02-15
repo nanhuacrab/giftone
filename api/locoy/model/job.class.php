@@ -50,7 +50,13 @@ class job_controller extends common{
 		}
 		//$job_row=$this->get_job_class($p['job_cate'],$l['locoy_rate']);
 		$data['test_remark'] = $p['job_cate'];
-		$job_row=$this->get_job_class_mapping(1,$p['job_cate'],$l['locoy_rate']); // 58同城
+		
+		$from_type = 1; // 58
+		if ( false !== strpos( $p['page_url'], "51job.com" ) ) {
+			$from_type = 2;
+		}
+		
+		$job_row=$this->get_job_class_mapping($from_type,$p['job_cate'],$l['locoy_rate']); // 58同城
 			if($job_row){
 				$i=1;
 				foreach($job_row as $v){
@@ -310,15 +316,17 @@ class job_controller extends common{
 			$name = substr($name, 0, $index);
 		}
 		
+		$jobs = explode( "/", $name );
 		
-		$key = $from_type."_".$name;
-		$mapping = $job_class_mapping[$key];
-		if( isset($mapping) ){
-			return array( $mapping[4], $mapping[2], $mapping[0] );
+		foreach( $jobs as $j ) {		
+			$key = $from_type."_".$j;
+			$mapping = $job_class_mapping[$key];
+			if( isset($mapping) ){
+				return array( $mapping[4], $mapping[2], $mapping[0] );
+			}
 		}
-		else {
-			return null;
-		}
+		
+		return null;
 	}
 	function get_job_class($name,$locoy_rate){
 		include(PLUS_PATH."job.cache.php");
