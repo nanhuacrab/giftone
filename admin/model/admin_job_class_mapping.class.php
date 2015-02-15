@@ -60,11 +60,12 @@ class admin_job_class_mapping_controller extends common
 	
 	function upp_action(){
 		if($_POST['mappingid']){
-			$sql = "`job1`='".$_POST['job1']."',`job1_son`='".$_POST['job1_son']."', `job_class_id` = '".$_POST['job_class']."'";
+			include(PLUS_PATH."job.cache.php");
+			$sql = "`job1`='".$_POST['job1']."',`job1_son`='".$_POST['job1_son']."',`job1_name` = '".$job_name[$_POST['job1']]."', `job1_son_name` = '".$job_name[$_POST['job1_son']]."',`job_class_id` = '".$_POST['job_class']."', `job_class_name` = '".$job_name[$_POST['job_class']]."'";
 			$where = "`id`='".$_POST['mappingid']."'";
 			$up=$this->obj->DB_update_all("job_class_mapping",$sql,$where);
 			$this->cache_action();
-			echo &up." ".$sql." where ".$where; die;
+			//echo $up." ".$sql." where ".$where; die;
 		}
 	}
 	
