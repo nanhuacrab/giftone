@@ -17,76 +17,22 @@
 	<div style="height: 160px;" class="job_box_div">  
 	   <div class="job_box_inp">
 		<table class="table_form "style="width:100%">
-			<tr><td style="text-align: right; width: 100px;">匹配字符:</td><td><span name="match" id='match'></span></td></tr>
-			<tr>
-				<td style="text-align: right;">job1:</td>
-				<td>
-				<div class="admin_Filter_text formselect" did="dtype_job1" style="z-index:30; width: 280px;"> 
-					<input type="hidden" class="admin_Filter_but" id="job1" />
-					<input type="button" class="admin_Filter_but" id="job1_name"/>
-					<div class="admin_Filter_text_box" id="dtype_job1" style="display: none; width: 200px;">
-					  <ul>
-					  {yun:}foreach item=v from=$job_index{/yun}
-						  <li><a href="javascript:void(0)" onclick="show_job1_son({yun:}$v{/yun})">{yun:}$job_name[$v]{/yun}</a></li>
-					  {yun:}/foreach{/yun}
-					  </ul>  
-					</div>
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td style="text-align: right;">job1_son:</td>
-				<td>
-				<div class="admin_Filter_text formselect" did="dtype_job1_son" style="z-index:20"> 
-					<input type="hidden" class="admin_Filter_but" id="job1_son" />
-					<input type="button" class="admin_Filter_but" id="job1_son_name" />
-					<div class="admin_Filter_text_box" id="dtype_job1_son" style="display: none; width: 200px;">
-					  <ul>
-						  {yun:}foreach item=v from=$job_index{/yun}
-							  <li><a href="javascript:void(0)">{yun:}$job_name[$v]{/yun}</a></li>
-						  {yun:}/foreach{/yun}
-					  </ul>  
-					</div>
-				</div>
-				</td>
-			</tr>
-			<tr>
-				<td style="text-align: right;">系统职位类型Id:</td>
-				<td>
-				<div class="admin_Filter_text formselect" did="dtype_job_class" style="z-index:10"> 
-					<input type="hidden" class="admin_Filter_but" id="job_class_id" />
-					<input type="button" class="admin_Filter_but" id="job_class_name" />
-					<div class="admin_Filter_text_box" id="dtype_job_class" style="display: none;">
-					  <ul>
-					  </ul>  
-					</div>
-				</div>
-				</td>
-			</tr>
- 			<tr><td colspan='2' class='ui_content_wrap' style="border-bottom:none"><input class="admin_submit4" type="button" value="保存 " onClick=""/></td></tr> 
+			<tr><td style="text-align: right; width: 100px;">匹配字符:</td><td><span name="match" id='match'></span><input id="mappingid" type="hidden" /></td></tr>
+			<tr><td colspan='2' class='ui_content_wrap' style="border-bottom:none"><input class="admin_submit4" type="button" value="保存 " onClick="save_mapping()"/></td></tr> 
 		</table> 
 	   </div>
 	</div>
 </div> 
 <!--弹出框end-->
 <script type="text/javascript">  
-function save_industry(){
+function save_mapping(){
 	var pytoken=$("#pytoken").val(); 
-	var add_name=$("input[name='add_name']").val(); 
-	var add_sort=$("input[name='add_sort']").val(); 
-	if($.trim(add_name)==''){
-		parent.layer.msg('类别名称不能为空！', 2, 8);return false;
-	}
-	$.post("index.php?m=admin_industry&c=add",{add_name:add_name,add_sort:add_sort,pytoken:pytoken},function(msg){
-		if(msg==1){ 
-			parent.layer.msg('类别名称不能为空！', 2, 8);return false;
-		}else if(msg==2){
-			parent.layer.msg('已经存在此类别！', 2, 8);return false;
-		}else if(msg==3){
-			parent.layer.msg('添加成功！', 2,9,function(){location=location ;});return false;
-		}else if(msg==4){
-			parent.layer.msg('失败成功！', 2,8,function(){location=location ;});return false;
-		}
+	var mappingid=$("#mappingid").val(); 
+	var job1=$("#job1").val(); 
+	var job1_son=$("#job1_son").val(); 
+	var job_class=$("#job_class").val(); 
+	$.post("index.php?m=admin_job_class_mapping&c=upp",{mappingid:mappingid,job1:job1,job1_son:job1_son,job_class:job_class,pytoken:pytoken},function(msg){
+		parent.layer.msg('更新成功！', 2,9,function(){location=location ;});return false;
 	}); 
 }
 function checksort(id){
@@ -124,7 +70,7 @@ function subname(id){
 	})
 }
 
-function upp_job_class_mapping(match,width,height,divid,url,job1,job1_name,job1_son,job1_son_name,job_class_id,job_class_name){
+function upp_job_class_mapping(mappingid,match,width,height,divid,url,job1,job1_son,job_class){
 	if(url){$(divid).append("<input id='surl' value='"+url+"' type='hidden'/>");}
 	$.layer({
 		type : 1,
@@ -135,50 +81,61 @@ function upp_job_class_mapping(match,width,height,divid,url,job1,job1_name,job1_
 		area : [width+'px',height+'px'],
 		page : {dom :divid}
 	});
+	jQuery(divid).find('#mappingid').val(mappingid);
 	jQuery(divid).find('span#match').text(match);
-	jQuery(divid).find('input#job1').val(job1);
-	jQuery(divid).find('input#job1_name').val(job1_name);
-	jQuery(divid).find('input#job1_son').val(job1_son);
-	jQuery(divid).find('input#job1_son_name').val(job1_son_name);
-	jQuery(divid).find('input#job_class_id').val(job_class_id);
-	jQuery(divid).find('input#job_class_name').val(job_class_name);
+	show_job1( job1, job1_son, job_class );
 }
-function show_job1_son( job1 ) {
-	if ( undefined === job1 ) {
+function show_job1( job1, job1_son, job_class ) {
+	if ( undefined !== job1 ) {
+		var url = "index.php?m=admin_job_class_mapping&c=job1&job1="+job1;
+		if ( undefined !== job1_son ) {
+			url += "&job1_son="+job1_son;
+		}
+		if ( undefined !== job_class ) {
+			url += "&job_class="+job_class;
+		}
+		$.get(url,function(data) {
+			if ( jQuery("div#wname tr").length == 5 ) {
+				jQuery("div#wname tr:eq(1)").remove();
+				jQuery("div#wname tr:eq(1)").remove();
+				jQuery("div#wname tr:eq(1)").remove();
+			}
+			jQuery("div#wname tr:eq(0)").after(data);
+			
+			jQuery("div#wname .formselect").hover(function(){
+				var did=$(this).attr("did");
+				$("#"+did).show();
+			},function(){
+				var did=$(this).attr("did");
+				$("#"+did).hide();
+			}); 
+		});
 	}
-	$.get('index.php?m=admin_job_class_mapping&c=getsubjob&jobid='+job1,function(data) {
-		jQuery( "#dtype_job1_son ul").html( data );
-		jQuery( "#dtype_job1").hide();
-	});
-}
-function show_job_class( job1_son ) {
-	$.get('index.php?m=admin_job_class_mapping&c=getsubjob&jobid='+job1,function(data) {
-		jQuery( "#dtype_job1_son ul").html( data );
-		jQuery( "#dtype_job1").hide();
-	});
 }
 </script> 
 <span id="temp"></span>
 
 <div class="infoboxp"> 
-<div class="infoboxp_top_bg"></div>
-<div class="admin_Filter"> 
-<span class="complay_top_span fl">职位类型匹配关系</span>
-<div class="admin_Filter_span">来源类型：</div>
-	<div class="admin_Filter_text formselect" did="dtype"> 
-  <input type="button" value="{yun:}$from_type_name{/yun}" class="admin_Filter_but" id="btype">
-  		   <input type="hidden" name="com_type" id="type" value="1"><div class="admin_Filter_text_box" style="display:none" id="dtype">
+	<div class="infoboxp_top_bg"></div>
+	<div class="admin_Filter"> 
+		<span class="complay_top_span fl">职位类型匹配关系</span>
+		<div class="admin_Filter_span">来源类型：</div>
+		<div class="admin_Filter_text formselect" did="dtype"> 
+			<input type="button" value="{yun:}$from_type_name{/yun}" class="admin_Filter_but" id="btype">
+		   <input type="hidden" name="com_type" id="type" value="1">
+		   <div class="admin_Filter_text_box" style="display:none" id="dtype">
 			  <ul>
 				  <li><a href="index.php?m=admin_job_class_mapping&t=1">58同城</a></li>
 				  <li><a href="index.php?m=admin_job_class_mapping&t=2">51job</a></li>
 			  </ul>  
 		  </div>
-    </div>
-</div>
+		</div>
+	</div>
+	<div class="clear"></div>
 <div class="table-list">
   <div class="admin_table_border">
   <iframe id="supportiframe"  name="supportiframe" onload="returnmessage('supportiframe');" style="display:none"></iframe>
-<form action="index.php?m=admin_industry&c=del" method="post" target="supportiframe" id='myform'>  
+	<form action="index.php?m=admin_industry&c=del" method="post" target="supportiframe" id='myform'>  
 <input type="hidden" name="pytoken"  id='pytoken' value="{yun:}$pytoken{/yun}">
 <table width="100%" id="table_industry">
 	<thead>
@@ -204,17 +161,9 @@ function show_job_class( job1_son ) {
 		<td class="ud">{yun:}$v.id{/yun}</td>
 		<td class="ud" align="left">
 		{yun:}if 1 == $v.from_type{/yun}58同城{yun:}elseif 2 == $v.from_type{/yun}51job{yun:}/if{/yun}
-		<!--
-		<span onClick="checkname('{yun:}$v.id{/yun}');" id="name{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.from_type{/yun}</span>
-        <input class="input-text hidden" type="text" id="inputname{yun:}$v.id{/yun}" value="{yun:}$v.from_type{/yun}" onBlur="subname('{yun:}$v.id{/yun}');" >
-		-->
 		</td>
 		<td>
 		{yun:}$v.match{/yun}
-		<!--
-		<span onClick="checkname('{yun:}$v.id{/yun}');" id="sort{yun:}$v.id{/yun}" style="cursor:pointer;">{yun:}$v.match{/yun}</span>
-		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.match{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" >
-		-->
 		</td>
         <td class="ud">
 		{yun:}$v.job_class_id{/yun}
@@ -234,11 +183,9 @@ function show_job_class( job1_son ) {
 		<td class="ud">
 		{yun:}$v.job1_name{/yun}
 		</td>
-		<input class="input-text hidden" type="text" id="input{yun:}$v.id{/yun}" size="10" value="{yun:}$v.sort{/yun}" onBlur="subsort('{yun:}$v.id{/yun}');" ></td>
 		<td class="ud">
-      <a href="javascript:void(0)" onclick="upp_job_class_mapping('{yun:}$v.match{/yun}','400','220','#wname','index.php?m=userclass&c=save',{yun:}$v.job1{/yun},'{yun:}$v.job1_name{/yun}',{yun:}$v.job1_son{/yun},'{yun:}$v.job1_son_name{/yun}',{yun:}$v.job_class_id{/yun},'{yun:}$v.job_class_name{/yun}')" class="admin_cz_sc">修改</a>
-        <!--<a href="javascript:void(0)" onClick="layer_del('确定要删除？', 'index.php?m=admin_industry&c=del&delid={yun:}$v.id{/yun}');"class="admin_cz_sc">删除</a>-->
-		</td>
+      <a href="javascript:void(0)" onclick="upp_job_class_mapping('{yun:}$v.id{/yun}','{yun:}$v.match{/yun}','400','220','#wname','index.php?m=userclass&c=save',{yun:}$v.job1{/yun},{yun:}$v.job1_son{/yun},{yun:}$v.job_class_id{/yun})" class="admin_cz_sc">修改</a>
+        </td>
 	</tr> 
 	
 {yun:}/foreach{/yun} 
@@ -253,8 +200,8 @@ function show_job_class( job1_son ) {
     </tr>
 	</tbody>
 </table>
-</form>
-</div>
+	</form>
+	</div>
 </div>
 
 </div>

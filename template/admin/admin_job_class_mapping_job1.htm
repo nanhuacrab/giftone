@@ -1,13 +1,29 @@
 <tr>
+	<td style="text-align: right;">job1:</td>
+	<td>
+	<div class="admin_Filter_text formselect" did="dtype_job1" style="z-index:30; width: 280px;"> 
+		<input type="hidden" class="admin_Filter_but" id="job1" value="{yun:}$job1{/yun}" />
+		<input type="button" class="admin_Filter_but" id="job1_name" style="width: 100%" value="{yun:}$job_name[$job1]{/yun}"/>
+		<div class="admin_Filter_text_box" id="dtype_job1" style="display: none; width: 100%;">
+		  <ul>
+		  {yun:}foreach item=v from=$job_index{/yun}
+			  <li><a href="javascript:void(0)" onclick="show_job1({yun:}$v{/yun})">{yun:}$job_name[$v]{/yun}</a></li>
+		  {yun:}/foreach{/yun}
+		  </ul>  
+		</div>
+	</div>
+	</td>
+</tr>
+<tr>
 	<td style="text-align: right;">job1_son:</td>
 	<td>
-	<div class="admin_Filter_text formselect" did="dtype_job1_son" style="z-index:20"> 
+	<div class="admin_Filter_text formselect" did="dtype_job1_son" style="z-index:20; width: 280px;"> 
 		<input type="hidden" class="admin_Filter_but" id="job1_son" value="{yun:}$job1_son{/yun}" />
-		<input type="button" class="admin_Filter_but" id="job1_son_name" value="{yun:}$job_name[$job1_son]{/yun}" />
-		<div class="admin_Filter_text_box" id="dtype_job1_son" style="display: none; width: 200px;">
+		<input type="button" class="admin_Filter_but" id="job1_son_name" style="width: 100%" value="{yun:}$job_name[$job1_son]{/yun}" />
+		<div class="admin_Filter_text_box" id="dtype_job1_son" style="display: none; width: 100%;">
 		  <ul>
 			  {yun:}foreach item=v from=$job_type[$job1]{/yun}
-				  <li><a href="javascript:void(0)">{yun:}$job_name[$v]{/yun}</a></li>
+				  <li><a href="javascript:void(0)" onclick="show_job1({yun:}$job1{/yun},{yun:}$v{/yun})">{yun:}$job_name[$v]{/yun}</a></li>
 			  {yun:}/foreach{/yun}
 		  </ul>  
 		</div>
@@ -18,13 +34,13 @@
 <tr>
 	<td style="text-align: right;">系统职位类型Id:</td>
 	<td>
-	<div class="admin_Filter_text formselect" did="dtype_job_class" style="z-index:10"> 
-		<input type="hidden" class="admin_Filter_but" id="job_class_id" />
-		<input type="button" class="admin_Filter_but" id="job_class_name" value="{yun:}$job_name[$job_class]{/yun}" />
-		<div class="admin_Filter_text_box" id="dtype_job_class" style="display: none;">
+	<div class="admin_Filter_text formselect" did="dtype_job_class" style="z-index:10; width: 280px;"> 
+		<input type="hidden" class="admin_Filter_but" id="job_class" value="{yun:}$job_class{/yun}" />
+		<input type="button" class="admin_Filter_but" id="job_class_name" style="width: 100%" value="{yun:}$job_name[$job_class]{/yun}" />
+		<div class="admin_Filter_text_box" id="dtype_job_class" style="display: none; width: 100%;">
 		  <ul>
 				{yun:}foreach item=v from=$job_type[$job1_son]{/yun}
-					<li><a href="javascript:void(0)">{yun:}$job_name[$v]{/yun}</a></li>
+					<li><a href="javascript:void(0)" onclick="show_job1({yun:}$job1{/yun},{yun:}$job1_son{/yun},{yun:}$v{/yun})">{yun:}$job_name[$v]{/yun}</a></li>
 				{yun:}/foreach{/yun}
 		  </ul>  
 		</div>

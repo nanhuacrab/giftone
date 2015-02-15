@@ -11,11 +11,35 @@
 class admin_job_class_mapping_controller extends common
 {
 	function index_action(){
+		$from_type = 1;
+		
+		if ( $_GET['t'] ) {
+			$from_type = $_GET['t'];
+		}
+		
+		if ( $from_type == 1 ) {
+			$from_type_name = "58同城";
+		}else if ( $from_type == 2 ) {
+			$from_type_name = "51job";
+		}
 	
-		$list=$this->obj->DB_select_all("job_class_mapping","1");
+		$list=$this->obj->DB_select_all("job_class_mapping","`from_type` = ".$from_type);
+		include(PLUS_PATH."job.cache.php");
+		$this->yunset("job_index",$job_index);
+		$this->yunset("job_name",$job_name);
 		$this->yunset("list",$list);
+		$this->yunset("from_type",$from_type);
+		$this->yunset("from_type_name",$from_type_name);
 		$this->yuntpl(array('admin/admin_job_class_mapping'));
 		$this->cache_action();
+	}
+	
+	function getsubjob_action(){
+		$jobid = $_GET['jobid'];
+		include(PLUS_PATH."job.cache.php");
+		$this->yunset("job_index",$job_type[$jobid]);
+		$this->yunset("job_name",$job_name);
+		$this->yuntpl(array('admin/admin_job_class_mapping_update'));
 	}
 	
 	function add_action(){
@@ -35,16 +59,13 @@ class admin_job_class_mapping_controller extends common
 	}
 	
 	function upp_action(){
-		if($_POST['update']){
-			if(!empty($_POST['name'])){
-				$up=$this->obj->DB_update_all("industry","`name`='".$_POST['name']."',`sort`='".$_POST['sort']."'","`id`='".$_POST['id']."'");
-				$this->cache_action();
- 				 $up?$this->obj->ACT_layer_msg("行业类别(ID:".$_POST['id'].")更新成功！",9,$_SERVER['HTTP_REFERER'],2,1):$this->obj->ACT_layer_msg("更新失败，请销后再试！",8,$_SERVER['HTTP_REFERER']);
-			}else{
-				$this->obj->ACT_layer_msg("请正确填写你要更新的行业！",8,$_SERVER['HTTP_REFERER']);
-			}
+		if($_POST['mappingid']){
+			$sql = "`job1`='".$_POST['job1']."',`job1_son`='".$_POST['job1_son']."', `job_class_id` = '".$_POST['job_class']."'";
+			$where = "`id`='".$_POST['mappingid']."'";
+			$up=$this->obj->DB_update_all("job_class_mapping",$sql,$where);
+			$this->cache_action();
+			echo &up." ".$sql." where ".$where; die;
 		}
-		$this->yuntpl(array('admin/admin_industry'));
 	}
 	
 	function del_action()
@@ -83,6 +104,31 @@ class admin_job_class_mapping_controller extends common
 		}
 		$this->cache_action();
 		echo '1';die;
+	}
+	
+	function job1_action() {
+		if ( $_GET['job1'] ) {
+			include(PLUS_PATH."job.cache.php");
+			$this->yunset("job1",$_GET['job1']);
+			$job1_son = $_GET['job1_son'];
+			if ( $job1_son ) {
+				$this->yunset("job1_son",$job1_son);
+			} else {
+				$job1_son = $job_type[$_GET['job1']][0];
+				$this->yunset("job1_son",$job1_son);
+			}
+			
+			if ( $_GET['job_class'] ) {
+				$this->yunset("job_class",$_GET['job_class']);
+			} else {
+				$this->yunset("job_class",$job_type[$job1_son][0]);
+			}
+			
+			$this->yunset("job_index",$job_index);
+			$this->yunset("job_type",$job_type);
+			$this->yunset("job_name",$job_name);
+			$this->yuntpl(array('admin/admin_job_class_mapping_job1'));
+		}
 	}
 }
 ?>

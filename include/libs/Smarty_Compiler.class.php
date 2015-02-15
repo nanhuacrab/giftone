@@ -2787,7 +2787,7 @@ class Smarty_Compiler extends Smarty
 		{
 			$jobwhere.=" AND `job_post`='$paramer[job_post]'";
 		}
-		$joball=$db->select_all("company_job",$jobwhere);
+		$joball=$db->select_all("company_job",$jobwhere." limit 0,100");
 		if(is_array($joball)){
 			foreach($joball as $v){
 				$uid[]=$v[uid];
