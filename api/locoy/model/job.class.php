@@ -274,16 +274,59 @@ class job_controller extends common{
 		$name=str_replace(array("省","市","县","区"),"/",$name);
 		$arr=explode("/",$name);
 		if ( count($arr) > 2 ) {
-			$arr = array($arr[0],$arr[1]);
+			if ( "北京" == trim($arr[1]) ) {
+				$data[] = 1;
+				$data[] = 1534;
+				$arr = array($arr[2]);
+			}
+			else if ( "上海" == trim($arr[1]) ) {
+				$data[] = 2;
+				$data[] = 1532;
+				$arr = array($arr[2]);
+			}
+			else if ( "天津" == trim($arr[1]) ) {
+				$data[] = 3;
+				$data[] = 38;
+				$arr = array($arr[2]);
+			}
+			else if ( "重庆" == trim($arr[1]) ) {
+				$data[] = 4;
+				$data[] = 39;
+				$arr = array($arr[2]);
+			}
+			
 		}
-		
 		if ( count($arr) > 1 ) {
-			if( $arr[1] == "申请职位" ) {
+			if ( "北京" == trim($arr[0]) ) {
+				$data[] = 1;
+				$data[] = 1534;
+				$arr = array($arr[1]);
+			}
+			else if ( "上海" == trim($arr[0]) ) {
+				$data[] = 2;
+				$data[] = 1532;
+				$arr = array($arr[1]);
+			}
+			else if ( "天津" == trim($arr[0]) ) {
+				$data[] = 3;
+				$data[] = 38;
+				$arr = array($arr[1]);
+			}
+			else if ( "重庆" == trim($arr[0]) ) {
+				$data[] = 4;
+				$data[] = 39;
+				$arr = array($arr[1]);
+			}
+			else if( $arr[1] == "申请职位" ) {
 				$arr = array($arr[0]);
 			}
-			else if( trim($arr[1]) == "浦东" ) {
-				$arr[1] = "浦东新";
-			}
+		}
+		
+		if( $arr[0] == "申请职位" ) {
+			$arr = array();
+		}
+		else if( trim($arr[0]) == "浦东" ) {
+			$arr[0] = "浦东新";
 		}
 		
 		if(is_array($arr)){
