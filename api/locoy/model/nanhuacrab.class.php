@@ -46,6 +46,61 @@ class nanhuacrab_controller extends common{
 		$company_page_url = $_POST["company_page_url"];
 		$this->obj->DB_insert_once("giftone_company", "`job_page_url`='".$job_page_url."', `company_page_url`='".$company_page_url."', uid=0");
 	}
+	function upjobclassmapping_action() {
+		$mappings=$this->obj->DB_select_all("job_class_mapping","from_type = 2 and job_class_id = 956");
+		echo count($mappings)."<br />";
+		foreach( $mappings as $mapping ) {
+			$match = $mapping["match"];
+			
+			$this->upjobclassmapping($mapping,$match);
+			
+			$matchs = explode("/",$match);
+			//foreach( $matchs as $match ){
+			//	$this->upjobclassmapping($mapping,$match);
+			//}
+			
+		}
+	}
+	function upjobclassmapping($mapping,$match) {
+		//echo "aaaa";
+		//die;
+		
+		
+			$where = "name like '%".$match."%'";
+			
+//$cha=mb_detect_encoding($where);
+//$where = iconv($cha,"UTF-8",$where);
+//$where = "name = '培训经理/主管'";
+//echo $where;
+			
+			$jobclassrow=$this->obj->DB_select_once("job_class", $where);
+			if(is_array($jobclassrow)){
+				echo $jobclassrow["id"]."]";
+				$job_class_id = $jobclassrow["id"];
+				$job_class_name = $jobclassrow["name"];
+				$job1_son =  $jobclassrow["keyid"];
+				
+				$jobclassrow=$this->obj->DB_select_once("job_class","id = ".$job1_son);
+				if(is_array($jobclassrow)){
+					echo $jobclassrow["id"]."]";
+					$job1_son_name=$jobclassrow["name"];
+					$job1 = $jobclassrow["keyid"];
+					$jobclassrow=$this->obj->DB_select_once("job_class", "id = ".$job1);
+					if(is_array($jobclassrow)){
+						$job1_name=$jobclassrow["name"];
+						$update = "job_class_id=".$job_class_id.", job_class_name='".$job_class_name."', job1_son=".$job1_son.", job1_son_name='".$job1_son_name."', job1=".$job1.", job1_name='".$job1_name."'";
+						//echo $update;
+						$this->obj->DB_update_all("job_class_mapping", $update, "id=".$mapping["id"] );
+					}
+				}
+				else{
+					echo $where."<br />";
+				}
+			}else{
+				echo $where."<br />";
+			}
+		
+	}
 	
 	function fix_action(){
 		include("locoy_config.php");

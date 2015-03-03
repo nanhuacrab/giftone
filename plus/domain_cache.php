@@ -3,6 +3,10 @@ $site_domain=array('0'=>array('cityname'=>'北京','cityid'=>'1534','id'=>'1','hos
 ,'1'=>array('cityname'=>'上海','cityid'=>'1532','id'=>'2','host'=>'sh.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.php','hyname'=>'','style'=>'default','fz_type'=>'1','webtitle'=>'礼聘网_上海站_礼贤下士 远求骐骥_最新招聘信息_找工作','webkeyword'=>'礼聘网 上海站 礼贤下士 远求骐骥 找工作 招聘','webmeta'=>'礼聘网_上海站_礼贤下士 远求骐骥_最新招聘信息_找工作 免费求职招聘平台','weblogo'=>'')
 ,'2'=>array('cityname'=>'广州','cityid'=>'235','id'=>'3','host'=>'gz.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.php','hyname'=>'','style'=>'default','fz_type'=>'1','webtitle'=>'广州站','webkeyword'=>'招聘','webmeta'=>'求职','weblogo'=>'')
 ,'3'=>array('cityname'=>'深圳','cityid'=>'236','id'=>'4','host'=>' sz.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.php','hyname'=>'','style'=>'default','fz_type'=>'1','webtitle'=>'礼聘网 - 深圳站','webkeyword'=>'礼聘网 - 深圳站','webmeta'=>'礼聘网 - 深圳站','weblogo'=>'')
+,'4'=>array('cityname'=>'南昌','cityid'=>'160','id'=>'5','host'=>'nc.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.htm','hyname'=>'','style'=>'nostalgia','fz_type'=>'1','webtitle'=>'礼聘网-礼贤下士 远求骐骥-南昌站','webkeyword'=>'礼聘网 礼贤下士 远求骐骥 南昌求职站','webmeta'=>'礼聘网-礼贤下士 远求骐骥-南昌站 免费的求职招聘网站','weblogo'=>'')
+,'5'=>array('cityname'=>'天津','cityid'=>'38','id'=>'6','host'=>'tj.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'inde.htm','hyname'=>'','style'=>'nostalgia','fz_type'=>'1','webtitle'=>'礼聘网 礼贤下士 远求骐骥 天津求职站','webkeyword'=>'礼聘网 礼贤下士 远求骐骥 天津求职站','webmeta'=>'礼聘网 礼贤下士 远求骐骥 天津求职站','weblogo'=>'')
+,'6'=>array('cityname'=>'重庆','cityid'=>'39','id'=>'7','host'=>'cq.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.htm','hyname'=>'','style'=>'default','fz_type'=>'1','webtitle'=>'礼聘网 礼贤下士 远求骐骥 重庆求职站','webkeyword'=>'礼聘网 礼贤下士 远求骐骥 重庆求职站','webmeta'=>'礼聘网 礼贤下士 远求骐骥 重庆求职站','weblogo'=>'')
+,'7'=>array('cityname'=>'南京','cityid'=>'110','id'=>'8','host'=>'nj.gift-job.com','hy'=>'0','type'=>'1','tpl'=>'index.htm','hyname'=>'','style'=>'default','fz_type'=>'1','webtitle'=>'礼聘网_南京站_礼贤下士 远求骐骥_最新招聘信息_找工作','webkeyword'=>'礼聘网 南京站 礼贤下士 远求骐骥 找工作 招聘','webmeta'=>'礼聘网_南京站_礼贤下士 远求骐骥_最新招聘信息_找工作 免费求职招聘平台','weblogo'=>'')
 )
 ; 
 ?>

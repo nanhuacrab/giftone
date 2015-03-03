@@ -94,14 +94,6 @@ DD_belatedPNG.fix('.png');
   {yun:}/foreach{/yun}
  </div> 
  </div> 
-<div class="Search_jobs_form_list">
- <div class="Search_jobs_name"> 工作经验：</div>   
- <div class="Search_jobs_sub">
-	<a href="{yun:}seacrh_url m=com untype=exp{/yun}" class="Search_jobs_sub_a {yun:}if $smarty.get.exp==''{/yun}Search_jobs_sub_cur{yun:}/if{/yun}">全部</a>
- {yun:}foreach from=$comdata.job_exp item=job_exp key=key{/yun}
-  <a href="{yun:}seacrh_url m=com exp=$job_exp untype=exp{/yun}" class="Search_jobs_sub_a {yun:}if $smarty.get.exp==$job_exp{/yun}Search_jobs_sub_cur{yun:}/if{/yun}">{yun:}$comclass_name[$job_exp]{/yun}</a>
-  {yun:}/foreach{/yun}</div>
- </div> 
 <div class="Search_jobs_form_list"> 
  <div class="Search_jobs_name"> 性别要求：</div>  
  <div class="Search_jobs_sub">
@@ -111,14 +103,6 @@ DD_belatedPNG.fix('.png');
   {yun:}/foreach{/yun}
  </div>
  </div> 
- <div class="Search_jobs_form_list"> 
- <div class="Search_jobs_name">  工作类型：</div>
- <div class="Search_jobs_sub">
-	<a href="{yun:}seacrh_url m=com untype=type{/yun}" class="Search_jobs_sub_a {yun:}if $smarty.get.type==''{/yun}Search_jobs_sub_cur{yun:}/if{/yun}">全部</a>
- {yun:}foreach from=$comdata.job_type item=job_type key=key{/yun}
-  <a href="{yun:}seacrh_url m=com type=$job_type untype=type{/yun}" class="Search_jobs_sub_a {yun:}if $smarty.get.type==$job_type{/yun}Search_jobs_sub_cur{yun:}/if{/yun}">{yun:}$comclass_name[$job_type]{/yun}</a>
-  {yun:}/foreach{/yun}</div> 
-  </div> 
    <div class="Search_jobs_form_list"> 
  <div class="Search_jobs_name">  关键字：</div>
  <div class="Search_jobs_sub"><input type="text" name="keyword" value="{yun:}$smarty.get.keyword{/yun}" placeholder="请输入要搜索的关键字" class="Search_jobs_text"><input type="submit" value="搜职位" class="Search_jobs_submit">{yun:}if $paras{/yun}<a href="javascript:void(0)" class="Search_jobs_search_box"  onclick="addfinder('{yun:}$paras{/yun}','1')">+ 保存为职位搜索器</a>{yun:}/if{/yun}</div>
@@ -225,7 +209,7 @@ DD_belatedPNG.fix('.png');
 <div class="search_user_list_neme search_user_list_w100">薪资待遇 </div>        
 <div class="search_user_list_neme search_user_list_w100">更新日期 </div>        
 </div>
-{yun:}joblist namelen=8 comlen=12 ispage=1 rec=auto.rec hy=auto.hy job1=auto.job1 job1_son=auto.job1_son job_post=auto.job_post jobids=auto.jobids pr=auto.pr mun=auto.mun provinceid=auto.provinceid cityid=auto.cityid ltype=auto.ltype three_cityid=auto.three_cityid type=auto.type edu=auto.edu exp=auto.exp sex=auto.sex salary=auto.salary keyword=auto.keyword key=key sdate=auto.sdate cert=auto.cert urgent=auto.urgent job=auto.job uptime=auto.uptime order=auto.order orderby=@orderby  limit=50 item=job_list{/yun}
+{yun:}joblist recurit_level_type=2 namelen=8 comlen=12 ispage=1 rec=auto.rec hy=auto.hy job1=auto.job1 job1_son=auto.job1_son job_post=auto.job_post jobids=auto.jobids pr=auto.pr mun=auto.mun provinceid=auto.provinceid cityid=auto.cityid ltype=auto.ltype three_cityid=auto.three_cityid type=auto.type edu=auto.edu exp=auto.exp sex=auto.sex salary=auto.salary keyword=auto.keyword key=key sdate=auto.sdate cert=auto.cert urgent=auto.urgent job=auto.job uptime=auto.uptime order=auto.order orderby=@orderby  limit=50 item=job_list{/yun}
 <div class="search_job_list {yun:}if $key%2!='0'{/yun}search_job_list_cur{yun:}/if{/yun}">
 <div class="search_user_list_neme search_user_list_w240">
     <div class="checkbox_job" pid="{yun:}$job_list.id{/yun}"><i></i>

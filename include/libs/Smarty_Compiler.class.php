@@ -3865,6 +3865,10 @@ class Smarty_Compiler extends Smarty
 		{
 			$where.=" AND `job_post` in ($paramer[job])";
 		}
+		if($paramer[recurit_level_type]){
+			$where .= " AND `recurit_level_type` = 2 ";
+		}
+		
 		if($paramer[order] && $paramer[order]!="lastdate")
 		{
 			$order = " ORDER BY ".str_replace("'","",$paramer[order])."  ";
