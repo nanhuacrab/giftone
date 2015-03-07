@@ -225,13 +225,13 @@ DD_belatedPNG.fix('.png');
 <div class="search_user_list_neme search_user_list_w100">薪资待遇 </div>        
 <div class="search_user_list_neme search_user_list_w100">更新日期 </div>        
 </div>
-{yun:}joblist namelen=8 comlen=12 ispage=1 rec=auto.rec hy=auto.hy job1=auto.job1 job1_son=auto.job1_son job_post=auto.job_post jobids=auto.jobids pr=auto.pr mun=auto.mun provinceid=auto.provinceid cityid=auto.cityid ltype=auto.ltype three_cityid=auto.three_cityid type=auto.type edu=auto.edu exp=auto.exp sex=auto.sex salary=auto.salary keyword=auto.keyword key=key sdate=auto.sdate cert=auto.cert urgent=auto.urgent job=auto.job uptime=auto.uptime order=auto.order orderby=@orderby  limit=50 item=job_list{/yun}
+{yun:}joblist namelen=18 comlen=12 ispage=1 rec=auto.rec hy=auto.hy job1=auto.job1 job1_son=auto.job1_son job_post=auto.job_post jobids=auto.jobids pr=auto.pr mun=auto.mun provinceid=auto.provinceid cityid=auto.cityid ltype=auto.ltype three_cityid=auto.three_cityid type=auto.type edu=auto.edu exp=auto.exp sex=auto.sex salary=auto.salary keyword=auto.keyword key=key sdate=auto.sdate cert=auto.cert urgent=auto.urgent job=auto.job uptime=auto.uptime order=auto.order orderby=@orderby  limit=50 item=job_list{/yun}
 <div class="search_job_list {yun:}if $key%2!='0'{/yun}search_job_list_cur{yun:}/if{/yun}">
 <div class="search_user_list_neme search_user_list_w240">
     <div class="checkbox_job" pid="{yun:}$job_list.id{/yun}"><i></i>
         <input type="checkbox" name="checkbox_job" style="display:none;" id="checkbox{yun:}$job_list.id{/yun}" value="{yun:}$job_list.id{/yun}"/>
     </div>
-<a href="{yun:}$job_list.job_url{/yun}" class="search_job_jobs_name" target="_blank">{yun:}$job_list.name_n{/yun}</a>
+<a href="{yun:}$job_list.job_url{/yun}" class="search_job_jobs_name" style="display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" target="_blank" title="{yun:}$job_list.name_full{/yun}">{yun:}$job_list.name_full{/yun}</a>
 
 {yun:}if $job_list.rec_time>time(){/yun}<img width="15" height="15" src="{yun:}$style{/yun}/images/tui.png" title="站长推荐"/>{yun:}/if{/yun}
 {yun:}if $job_list.urgent_time>time(){/yun}<img width="34" height="14" src="{yun:}$style{/yun}/images/hot.gif" title="紧急招聘"/>{yun:}/if{/yun}
