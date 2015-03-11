@@ -299,6 +299,8 @@ class register_controller extends common{
 							$table2 = "company";
 							$value="`uid`='".$userid."',".$this->rating_info();
 							$value2 = "`uid`='".$userid."',`linkmail`='".$_POST['email']."',`name`='".$_POST['unit_name']."',`linktel`='".$_POST['moblie']."',`address`='".$_POST['address']."',`linkman`='".$_POST['linkman']."'";
+							
+							$value2 = $value2.", `original_page_url` = '0'";
 						}
 						if($_POST['codeid']=='2' && $this->config['sy_msg_regcode']=="1")
 						{

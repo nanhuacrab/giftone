@@ -383,7 +383,7 @@ class admin_company_controller extends common
 					$uid = $new_info['uid'];
 					if($uid>0)
 					{
-						$this->obj->DB_insert_once("company","`uid`='$uid',`name`='$name',`linktel`='$moblie',`linkmail`='$email',`address`='$address'");
+						$this->obj->DB_insert_once("company","`uid`='$uid',`name`='$name',`linktel`='$moblie',`linkmail`='$email',`address`='$address', `original_page_url` = '0'");
 						$rat_arr = @explode("+",$rating_name);
 						$value = "`uid`='$uid',";
 						$value.=$this->rating_info($rat_arr[0]);

@@ -153,7 +153,7 @@ class job_controller extends common{
 	function add_com($p,$l){
 	
 		if ( $p['comp_url_58'] ) {
-			$data['original_page_url']=trim($p['comp_url_58']);
+			//$data['original_page_url']=trim($p['comp_url_58']);
 			$api_helper = new api_helper( );
 			$api_helper->getcontent( $p['comp_url_58'] );
 			$p['email'] = $api_helper->getemail( );
@@ -235,6 +235,11 @@ class job_controller extends common{
 		$userid=$this->obj->DB_insert_once("member","`username`='".$username."',`password`='$pass',`moblie`='".$p['moblie']."',`email`='".$p['email']."',`usertype`='2',`status`='$satus',`salt`='$salt',`reg_date`='$time',`reg_ip`='$ip'");
 		$value="`uid`='$userid',".$this->rating_info($l['locoy_rating']);
 		$value2 = "`uid`='$userid',`linkmail`='".$p['email']."',`name`='".$p['com_name']."',`linktel`='".$p['moblie']."',`address`='".$_POST['address']."'";
+		
+		if ( $p['comp_url_58'] ) {
+			$value2 = $value2.", `original_page_url` = '".trim($p['comp_url_58'])."'";
+		}
+		
 		$this->obj->DB_insert_once("company_statis",$value);
 		$this->obj->DB_insert_once("company",$value2);
 		$this->obj->DB_insert_once("friend_info","`uid`='".$userid."',`nickname`='".$username."',`usertype`='2'");

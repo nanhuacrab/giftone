@@ -20,8 +20,8 @@ class nanhuacrab_controller extends common{
 		}
 
 		echo "fix2";
-		//$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT ".($pn*50).", 50";
-		$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid`";
+		$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid` DESC LIMIT ".($pn*50).", 50";
+		//$where = "`original_page_url` IS NULL OR `original_page_url` = '' ORDER BY `uid`";
 		$companys=$this->obj->DB_select_all("company",$where);
 		
 		foreach( $companys as $company ) {
