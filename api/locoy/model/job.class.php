@@ -91,11 +91,17 @@ class job_controller extends common{
 		}else{
 			$data['sdate']=strtotime($l['locoy_job_sdate']);
 		}
+		
+		$data['sdate']=time();
+		
 		if($p['edate']){
 			$data['edate']=strtotime($p['edate']);
 		}else{
 			$data['edate']=strtotime($l['locoy_job_edate']);
 		}
+		
+		$data['edate']=strtotime("+90 day");
+		
 		//$data['salary']=$this->locoytostr($this->get_com_type('salary'),$p['salary'],$l['locoy_rate']);
 		$data['salary']=$this->locoytosalary($this->get_com_type('salary'),$p['salary'],$l['locoy_rate']);
 		if(!$data['salary']){
@@ -153,12 +159,16 @@ class job_controller extends common{
 	function add_com($p,$l){
 	
 		if ( $p['comp_url_58'] ) {
-			//$data['original_page_url']=trim($p['comp_url_58']);
-			$api_helper = new api_helper( );
-			$api_helper->getcontent( $p['comp_url_58'] );
-			$p['email'] = $api_helper->getemail( );
-			$p['mobile'] = $api_helper->getphone( );
-			$p['linkphone'] = $p['mobile'];
+			$data['original_page_url']=trim($p['comp_url_58']);
+			if ( false !== strpos( $p['page_url'], "51job.com" ) ) {
+				$api_helper = new api_helper( );
+				$api_helper->getcontent( $p['comp_url_58'] );
+				$p['email'] = $api_helper->getemail( );
+				$p['mobile'] = $api_helper->getphone( );
+				$p['linkphone'] = $p['mobile'];
+			}
+		}else {
+			$data['original_page_url'] = "1";
 		}
 	
 		$row=$this->obj->DB_select_once("company","`name`='".$p['com_name']."'");

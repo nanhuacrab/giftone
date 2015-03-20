@@ -1514,11 +1514,13 @@ class common
 		$row=$this->obj->DB_select_once("zhaopinhui","`id`='".$id."'");
 		$row["stime"]=strtotime($row['starttime'])-mktime();
 		$row["etime"]=strtotime($row['endtime'])-mktime();
+		$address=$this->obj->DB_select_once("zhaopinhui_address","`id`='".$row["addressId"]."'");
 		$rows=$this->obj->DB_select_all("zhaopinhui_pic","`zid`='".$id."'");
 		$data['zph_title']=$row['title'];
 		$data['zph_desc']=$this->obj->GET_content_desc($row['body']);
 		$this->data=$data;
 		$this->yunset("Info",$row);
+		$this->yunset("Address_info",$address);
 		$this->yunset("Image_info",$rows);
 	}
 	function assignhtm($contents,$id)

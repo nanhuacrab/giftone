@@ -19,6 +19,10 @@ DD_belatedPNG.fix('.png');
 <link rel="stylesheet" href="{yun:}$style{/yun}/style/yun_job_fairs.css" type="text/css"> 
 <link rel="stylesheet" href="{yun:}$style{/yun}/style/popImage.css" type="text/css"> 
 <script src="{yun:}$config.sy_weburl{/yun}/js/jquery.popImage.mini.js" language="javascript"></script>
+
+<script src="http://api.map.baidu.com/api?v=1.4"></script>
+<script src="{yun:}$config.sy_weburl{/yun}/js/map.js" language="javascript"></script>
+
 </head>
 <body>
 {yun:}include file="$tplstyle/header.htm"{/yun}
@@ -61,6 +65,19 @@ DD_belatedPNG.fix('.png');
 <div class="fairs_introduction fl">
 {yun:}if $Info.body{/yun}
 <div class="fairs_introduction_h1"><span class="icon png">’–∆∏ª·ΩÈ…‹</span></div>
+
+
+
+ <div id="map_container" style="width:100%;height:350px;"></div>
+ <script>
+ getmapshowcont('map_container',{yun:}$Address_info.x{/yun},{yun:}$Address_info.y{/yun},"{yun:}$Address_info.name{/yun}","{yun:}$Address_info.address{/yun}");
+ </script>
+
+
+
+
+
+
 <div class="fairs_introduction_p">
 {yun:}$Info.body{/yun}
 </div>
