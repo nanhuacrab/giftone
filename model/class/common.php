@@ -1015,7 +1015,7 @@ class common
 				$seo[$key]=str_replace(array("-  -","- -"),'-',$seo[$key]);
 			}
 		}
-		$this->yunset("title",$seo['title']." - Powered by PHPYun.");
+		$this->yunset("title",$seo['title']." - Powered by GiftJob.");
 		$this->yunset("keywords",$seo['keywords']);
 		$this->yunset("description",mb_substr(str_replace("	","",str_replace("\r","",str_replace("\n","",strip_tags($seo['description'])))),0,200,'gbk'));
 	}
